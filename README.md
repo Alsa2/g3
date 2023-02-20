@@ -43,9 +43,10 @@ Documentation, https://docs.arduino.cc/learn/starting-guide/whats-arduino.
 
 ## Record of Tasks
 
-| Task No | Planned Action                      | Planned Outcome                             | Time estimate | Target completion date | Criterion |
-| ------- | ----------------------------------- | ------------------------------------------- | ------------- | ---------------------- | --------- |
-| 1       | Planning: First Meeting with client | Start collecting the context of the problem | 6min          | Feb 7                  | A         |
+| Task No | Planned Action                                   | Planned Outcome                                          | Time estimate | Target completion date | Criterion |
+| ------- | ------------------------------------------------ | -------------------------------------------------------- | ------------- | ---------------------- | --------- |
+| 1       | Planning: First Meeting with client              | Start collecting the context of the problem              | 6 min         | Feb 7                  | A         |
+| 2       | Planning: Defining problem and proposed solution | Start on refining client's requirements and tools needed | 60 min        | Feb 20                 | A         |
 
 ## Flow Diagrams
 
