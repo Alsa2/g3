@@ -1,9 +1,8 @@
 # Unit 3 Project: CK Management Software
 
 ## Criteria A: Planning
-
-## Problem definition
-
+Cezar KItchen is a high school cafeteria that serve students and staff in UWC ISAK Japan. The cafeteria is managed by a Dariosan and has a student representative named Thumula Ayodhya Karunaratne. Until recently there was a notebook near the exit where you could write feedback about the lunch that you just eat, but because people where using it just to spam two things (karage and apple crumble), therefore the notebook was removed. One day Thumula had the idea to create a device that could take feedback at the exit like the ones after the security check in airports. Because the number of dishes could change it was opted for a numerical feedback system. 
+Because the current menu website is hosted on the platform wix he also wants to have a good website for the menu that doesn't use any third party software. He also asked to include statistics about the feedback in the website.
 
 
 ## Proposed Solution
