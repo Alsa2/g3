@@ -22,8 +22,9 @@ Documentation, https://docs.arduino.cc/learn/starting-guide/whats-arduino.
 
 ## Success Criteria
 
-1. 
-2. 
+1. Working website login system for management
+2. Working feedback tablet
+3. Working Website with statistics from the feedback tablet
 
 # Criteria B: Design
 
