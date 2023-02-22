@@ -20,4 +20,15 @@ class Dish(Base):
     name = Column(String)
     type = Column(String) #main, side, dessert
     ingredients = Column(String) #list of ingredients
-    menu = relationship("Menu", back_populates="dish") 
+    menu = relationship("Menu", back_populates="dish")
+    dish_stats = relationship("DishStats", back_populates="dish")
+
+class DishStats(Base):
+    __tablename__ = 'dish_stats'
+    id = Column(Integer, primary_key=True)
+    dish_id = Column(Integer, ForeignKey('dish.id'))
+    dish = relationship("Dish", back_populates="dish_stats")
+    date = Column(String)
+    likes = Column(Integer)
+    dislikes = Column(Integer)
+    neutrals = Column(String)
