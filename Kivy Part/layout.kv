@@ -26,6 +26,26 @@ ScreenManager:
         orientation: 'vertical'
         padding: 10
 
+        MDBoxLayout:
+            orientation: "horizontal"
+            padding: "8dp"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            
+            MDLabel:
+                text: "Dish 1"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+            MDGridLayout:
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                cols: 3
+                rows: 1
+                spacing: 10
+                MDRaisedButton:
+                    text: ":("
+                MDRaisedButton:
+                    text: ":|"
+                MDRaisedButton:
+                    text: ":)"
 
 <Login_screen>:
     name: 'login_screen'
@@ -46,4 +66,3 @@ ScreenManager:
             spacing: 10
 
             # it will be buttons
-            
