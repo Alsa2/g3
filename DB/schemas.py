@@ -26,6 +26,11 @@ class DishStats(Base):
 class FeedBack(Base):
     __tablename__ = 'feedback'
     id = Column(Integer, primary_key=True)
+    dish_id = Column(Integer, ForeignKey('dish.id'))
+    dish = relationship("Dish", back_populates="feedback")
+    date = Column(String)
+    feedback = Column(String)
+    read_status = Column(Integer) #0 - unread, 1 - read
     
 
 
