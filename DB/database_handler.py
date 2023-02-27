@@ -4,6 +4,7 @@ from sqlalchemy.orm import sessionmaker
 from schemas import Base, Menu, Dish, DishStats, FeedBack
 import datetime
 
+
 def create_db():
     engine = create_engine('sqlite:///database.db')
     Base.metadata.bind = engine
@@ -13,13 +14,14 @@ def create_db():
     print(engine.connect())
     return None
 
+
 class database_handler():
     def __init__(self):
         self.session = None
         engine = create_engine('sqlite:///database.db')
         Session = sessionmaker(bind=engine)
         self.session = Session()
-    
+
     def close(self):
         self.session.close()
         return None
@@ -32,11 +34,12 @@ class database_handler():
 
     def add_menu(self, date, meal, notes, dish_id):
         datetime_now = datetime.datetime.now()
-        menu = Menu(date=date, meal=meal, notes=notes, dish_id=dish_id, edition=datetime_now)
+        menu = Menu(date=date, meal=meal, notes=notes,
+                    dish_id=dish_id, edition=datetime_now)
         self.session.add(menu)
         self.session.commit()
         return None
-    
+
     def get_dish(self, dish_id):
         dish = self.session.query(Dish).filter_by(id=dish_id).first()
         return dish
@@ -44,48 +47,58 @@ class database_handler():
     def get_menu(self, date, meal):
         menu = self.session.query(Menu).filter_by(date=date, meal=meal).first()
         return menu
-    
-    def query_dishes(self, input): #Where input will be the search string
-        dishes = self.session.query(Dish).filter(Dish.name.like('%'+input+'%')).all()
+
+    def query_dishes(self, input):  # Where input will be the search string
+        dishes = self.session.query(Dish).filter(
+            Dish.name.like('%'+input+'%')).all()
         return dishes
 
     def query_next_dish_in_menu(self, meal):
         date = datetime.datetime.now().date()
-        menu = self.session.query(Menu).filter(Menu.date >= date, Menu.meal >= meal).first()
+        menu = self.session.query(Menu).filter(
+            Menu.date >= date, Menu.meal >= meal).first()
         return menu
 
-    #stats
+    # stats
 
     def add_dish_stats(self, dish_id, likes, dislikes, neutrals):
         date = datetime.datetime.now().date()
-        dish_stats = DishStats(dish_id=dish_id, date=date, likes=likes, dislikes=dislikes, neutrals=neutrals)
+        dish_stats = DishStats(dish_id=dish_id, date=date,
+                               likes=likes, dislikes=dislikes, neutrals=neutrals)
         self.session.add(dish_stats)
         self.session.commit()
         return None
-    
+
     def get_dish_stats(self, dish_id):
-        dish_stats = self.session.query(DishStats).filter_by(dish_id=dish_id).all()
+        dish_stats = self.session.query(
+            DishStats).filter_by(dish_id=dish_id).all()
         return dish_stats
 
     def most_liked_dish(self):
-        dish_stats = self.session.query(DishStats).order_by(DishStats.likes.desc()).first()
+        dish_stats = self.session.query(DishStats).order_by(
+            DishStats.likes.desc()).first()
         return dish_stats
 
     def most_disliked_dish(self):
-        dish_stats = self.session.query(DishStats).order_by(DishStats.dislikes.desc()).first()
+        dish_stats = self.session.query(DishStats).order_by(
+            DishStats.dislikes.desc()).first()
         return dish_stats
 
     # feedback
     def add_feedback(self, dish_id, feedback):
         date = datetime.datetime.now().date()
-        feedback = FeedBack(dish_id=dish_id, date=date, feedback=feedback, read_status=0)
+        feedback = FeedBack(dish_id=dish_id, date=date,
+                            feedback=feedback, read_status=0)
         self.session.add(feedback)
         self.session.commit()
         return None
 
-    def get_feedback(self, dish_id): #show the unread feedback first (read_status = 0) and then the read feedback (read_status = 1)
-        feedback = self.session.query(FeedBack).filter_by(dish_id=dish_id).order_by(FeedBack.read_status).all()
+    # show the unread feedback first (read_status = 0) and then the read feedback (read_status = 1)
+    def get_feedback(self, dish_id):
+        feedback = self.session.query(FeedBack).filter_by(
+            dish_id=dish_id).order_by(FeedBack.read_status).all()
         return feedback
+
 
 # Example usage:
 create_db()
