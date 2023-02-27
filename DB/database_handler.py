@@ -1,7 +1,7 @@
 import sqlite3
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from schemas import Base, Menu, Dish, DishStats
+from schemas import Base, Menu, Dish, DishStats, FeedBack
 import datetime
 
 def create_db():
@@ -75,6 +75,17 @@ class database_handler():
         dish_stats = self.session.query(DishStats).order_by(DishStats.dislikes.desc()).first()
         return dish_stats
 
+    # feedback
+    def add_feedback(self, dish_id, feedback):
+        date = datetime.datetime.now().date()
+        feedback = FeedBack(dish_id=dish_id, date=date, feedback=feedback, read_status=0)
+        self.session.add(feedback)
+        self.session.commit()
+        return None
+
+    def get_feedback(self, dish_id): #show the unread feedback first (read_status = 0) and then the read feedback (read_status = 1)
+        feedback = self.session.query(FeedBack).filter_by(dish_id=dish_id).order_by(FeedBack.read_status).all()
+        return feedback
 
 # Example usage:
 create_db()
@@ -89,5 +100,8 @@ print(db.query_dishes("Pasta")[0].name)
 # get last day stats for dish 1
 print(db.get_dish_stats(1)[-1].likes)
 
+db.add_feedback(1, "This dish is great!")
+db.add_feedback(1, "This dish is not great!")
+print(db.get_feedback(1))
 
-
+db.close()

@@ -12,6 +12,7 @@ class Dish(Base):
     ingredients = Column(String) #list of ingredients
     menu = relationship("Menu", back_populates="dish")
     dish_stats = relationship("DishStats", back_populates="dish")
+    feedback = relationship("FeedBack", back_populates="dish")
 
 class DishStats(Base):
     __tablename__ = 'dish_stats'
