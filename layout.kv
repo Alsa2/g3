@@ -1,0 +1,248 @@
+ScreenManager:
+    id:src_manager
+
+    Main_screen:
+        name: 'main_screen'
+
+    Feedback_screen:
+        name: 'feedback_screen'
+
+    Login_screen:
+        name: 'login_screen'
+
+    Config_screen:
+        name: 'config_screen'
+
+
+
+<Main_Screen>:
+    name: 'main_screen'
+    FitImage:
+        source: "assets/background.jpg"
+        # change the size of the image
+        size_hint: 1, 1
+        # change the position of the image
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+
+
+    # create a button on the top left of the screen with the name config
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: "8dp"
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        
+
+        MDRaisedButton:
+            text: "Config"
+            # to the left of the screen
+            on_release: app.root.current = 'config_screen'
+
+        MDCard:
+            size_hint: 0.85, 0.85
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            orientation: 'vertical'
+            padding: 10
+            #make the card a bit transparent
+            opacity: 0.3
+
+
+            MDBoxLayout:
+                orientation: "vertical"
+                
+                padding: "8dp"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+                MDLabel:
+                    text: "Fast Feedback"
+                    halign: "center"
+                    font_style: "H4"
+                
+                MDBoxLayout:
+                    orientation: "vertical"
+                    padding: 10
+
+                    MDLabel:
+                        text: "Vegetable"
+                        halign: "center"
+                        font_style: "H5"
+
+                    MDBoxLayout:
+                        orientation: "horizontal"
+                        MDRaisedButton:
+                            text: ":("
+                            size_hint_x: 0.33
+                            size_hint_y: 1
+
+                        MDRaisedButton:
+                            text: ":|"
+                            size_hint_x: 0.33
+                            size_hint_y: 1
+
+                        MDRaisedButton:
+                            text: ":)"
+                            size_hint_x: 0.33
+                            size_hint_y: 1
+
+
+                MDBoxLayout:
+                    orientation: "vertical"
+                    padding: 10
+
+                    MDLabel:
+                        text: "Meat"
+                        halign: "center"
+                        font_style: "H5"
+
+                    MDBoxLayout:
+                        orientation: "horizontal"
+                        MDRaisedButton:
+                            text: ":("
+                            size_hint_x: 0.33
+                            size_hint_y: 1
+
+                        MDRaisedButton:
+                            text: ":|"
+                            size_hint_x: 0.33
+                            size_hint_y: 1
+
+                        MDRaisedButton:
+                            text: ":)"
+                            size_hint_x: 0.33
+                            size_hint_y: 1
+
+                MDBoxLayout:
+                    orientation: "vertical"
+                    padding: 10
+
+                    MDLabel:
+                        text: "Dessert"
+                        halign: "center"
+                        font_style: "H5"
+
+                    MDBoxLayout:
+                        orientation: "horizontal"
+                        MDRaisedButton:
+                            text: ":("
+                            size_hint_x: 0.33
+                            size_hint_y: 1
+
+                        MDRaisedButton:
+                            text: ":|"
+                            size_hint_x: 0.33
+                            size_hint_y: 1
+
+                        MDRaisedButton:
+                            text: ":)"
+                            size_hint_x: 0.33
+                            size_hint_y: 1
+
+                MDBoxLayout:
+                    orientation: "horizontal"
+                    padding: 50
+                    MDRaisedButton:
+                        text: "Additional Feedback"
+                        size_hint_x: 0.1
+                        size_hint_y: 1
+                        on_release: app.root.current = 'feedback_screen'
+
+<Login_screen>:
+    name: 'login_screen'
+    
+    MDCard:
+        size_hint: 0.9, 0.9
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        orientation: 'vertical'
+        padding: 10
+        # change the color of the card
+
+        #add a 3x4 keyboard with numbers from 0 to 9 and backspace and enter
+
+        MDGridLayout:
+            cols: 3
+            rows: 4
+            padding: 10
+            spacing: 10
+
+            # it will be buttons
+
+<Feedback_screen>:
+    name: 'feedback_screen'
+    FitImage:
+        source: "assets/background.jpg"
+        # change the size of the image
+        size_hint: 1, 1
+        # change the position of the image
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+    MDCard:
+        size_hint: 0.9, 0.9
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        orientation: 'vertical'
+        padding: 10
+        opacity: 0.3
+        # change the color of the card
+
+        MDBoxLayout:
+            orientation: "vertical"
+            padding: "8dp"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+            MDLabel:
+                text: "Additional Feedback"
+                halign: "center"
+                font_style: "H4"
+
+            MDBoxLayout:
+                orientation: "vertical"
+                padding: 10
+
+                MDLabel:
+                    text: "Title"
+                    halign: "center"
+                    font_style: "H5"
+                
+                MDTextField:
+                    hint_text: "Enter title"
+                    helper_text: "Enter title"
+                    helper_text_mode: "on_focus"
+                    icon_right: "android"
+                    icon_right_color: app.theme_cls.primary_color
+                    required: True
+
+                MDLabel:
+                    text: "Dishes"
+                    halign: "center"
+                    font_style: "H5"
+
+                MDTextField:
+                    name: "dish"
+                    #min lenght 1
+                    min_text_length: 1
+                    on_text: root.search_dish(self.text)
+                    hint_text: "Enter dish"
+
+                #self.ids.dishes.add_widget(MDDropDownItem(text=dish.name))
+            
+
+                MDDropDownItem:
+                    id: drop_down
+                    text: "Select dish"
+                    
+
+
+                MDLabel:
+                    text: "Description"
+                    halign: "center"
+                    font_style: "H5"
+                
+
+                MDTextField:
+                    hint_text: "Enter description"
+                    helper_text: "Enter description"
+                    helper_text_mode: "on_focus"
+                    icon_right: "android"
+                    icon_right_color: app.theme_cls.primary_color
+                    required: True
+
+
