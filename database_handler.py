@@ -15,7 +15,7 @@ def create_db():
     return None
 
 
-class database_handler():
+class DatabaseHandler():
     def __init__(self):
         self.session = None
         engine = create_engine('sqlite:///database.db')
@@ -102,7 +102,7 @@ class database_handler():
 
 # Example usage:
 create_db()
-db = database_handler()
+db = DatabaseHandler()
 db.add_dish("Pasta", "main", "pasta, tomato sauce")
 db.add_menu("2019-01-01", 1, "vegetarian", 1)
 db.add_dish_stats(1, 3, 0, 0)
