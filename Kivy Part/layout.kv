@@ -10,42 +10,111 @@ ScreenManager:
     Config_screen:
         name: 'config_screen'
 
+
+
 <Main_Screen>:
     name: 'main_screen'
-
-    MDRaisedButton:
-        text: 'Config'
-        icon: 'settings'
-        # pos is let top of the screen
-        pos_hint: {"top": 1, "left": 0}
-        on_release: root.open_config()
-
-    MDCard:
-        size_hint: 0.85, 0.85
+    FitImage:
+        source: "assets/background.jpg"
+        # change the size of the image
+        size_hint: 1, 1
+        # change the position of the image
         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-        orientation: 'vertical'
-        padding: 10
 
-        MDBoxLayout:
-            orientation: "horizontal"
-            padding: "8dp"
+
+
+    # create a button on the top left of the screen with the name config
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: "8dp"
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        
+
+        MDRaisedButton:
+            text: "Config"
+            # to the left of the screen
+            on_release: src_manager.current = 'config_screen'
+
+        MDCard:
+            size_hint: 0.85, 0.85
             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-            
-            MDLabel:
-                text: "Dish 1"
+            orientation: 'vertical'
+            padding: 10
+            #make the card a bit transparent
+            opacity: 0.3
+
+
+            MDBoxLayout:
+                orientation: "vertical"
+                
+                padding: "8dp"
                 pos_hint: {'center_x': 0.5, 'center_y': 0.5}
 
-            MDGridLayout:
-                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-                cols: 3
-                rows: 1
-                spacing: 10
-                MDRaisedButton:
-                    text: ":("
-                MDRaisedButton:
-                    text: ":|"
-                MDRaisedButton:
-                    text: ":)"
+                MDLabel:
+                    text: "Fast Feedback"
+                    halign: "center"
+                    font_style: "H4"
+                
+                MDLabel:
+                    text: "Vegetables"
+                    halign: "center"
+                    font_style: "H5"
+
+                MDBoxLayout:
+                    orientation: "horizontal"
+                    padding: 10
+                    MDRaisedButton:
+                        text: ":("
+                        size_hint_x: 0.33
+
+                    MDRaisedButton:
+                        text: ":|"
+                        size_hint_x: 0.33
+
+                    MDRaisedButton:
+                        text: ":)"
+                        size_hint_x: 0.33
+
+
+                MDLabel:
+                    text: "Meat"
+                    halign: "center"
+                    font_style: "H5"
+                
+                MDBoxLayout:
+                    orientation: "horizontal"
+                    padding: 10
+                    MDRaisedButton:
+                        text: ":("
+                        size_hint_x: 0.33
+
+                    MDRaisedButton:
+                        text: ":|"
+                        size_hint_x: 0.33
+
+                    MDRaisedButton:
+                        text: ":)"
+                        size_hint_x: 0.33
+
+                MDLabel:
+                    text: "Dessert"
+                    halign: "center"
+                    font_style: "H5"
+
+                MDBoxLayout:
+                    orientation: "horizontal"
+                    padding: 10
+                    MDRaisedButton:
+                        text: ":("
+                        size_hint_x: 0.33
+
+                    MDRaisedButton:
+                        text: ":|"
+                        size_hint_x: 0.33
+
+                    MDRaisedButton:
+                        text: ":)"
+                        size_hint_x: 0.33
 
 <Login_screen>:
     name: 'login_screen'
