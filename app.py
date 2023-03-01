@@ -13,7 +13,16 @@ class Main_screen(MDScreen):
         self.manager.current = 'login_screen'
     pass
 
-class Login_screen(MDScreen):
+class Login_screen(MDScreen):    
+    def enter(self, code):
+        #check if the code entered is correct
+        if code == '1234':
+            self.manager.current = 'config_screen'
+            self.ids.error_label.text = ''
+        else:
+            Logger.warning(f'Authentication: Wrong code entered: {code}')
+            self.ids.error_label.text = 'Wrong code'
+            self.ids.code.helper_text_mode = "on_error"
     pass
 
 class Config_screen(MDScreen):
@@ -35,6 +44,19 @@ class Feedback_screen(MDScreen):
             for dish in query:
                 Logger.info('Dish: ' + dish.name)
                 self.ids.drop_down.add_widget(MDDropDownItem(text=dish.name))
+            db.close()
+        
+    def submit_feedback(self):
+        try:
+            title = self.ids.feedback_title.text
+        except:
+            Logger.warning('No title')
+            return
+        dish = self.ids.dish.text
+        description = self.ids.description.text
+
+        Logger.info('submit_feedback: ' + title + ' ' + dish + ' ' + description)
+        pass
                 
                 
 
