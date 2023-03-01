@@ -12,6 +12,12 @@ ScreenManager:
 
     Config_screen:
         name: 'config_screen'
+    
+    Statistics_screen:
+        name: 'statistics_screen'
+
+    Feedback_screen:
+        name: 'feedback_screen'
 
 
 
@@ -36,7 +42,7 @@ ScreenManager:
         MDRaisedButton:
             text: "Config"
             # to the left of the screen
-            on_release: app.root.current = 'config_screen'
+            on_release: app.root.current = 'login_screen'
 
         MDCard:
             size_hint: 0.85, 0.85
@@ -149,22 +155,149 @@ ScreenManager:
 <Login_screen>:
     name: 'login_screen'
     
+    FitImage:
+        source: "assets/background.jpg"
+        # change the size of the image
+        size_hint: 1, 1
+        # change the position of the image
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
     MDCard:
         size_hint: 0.9, 0.9
         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
         orientation: 'vertical'
         padding: 10
+        opacity: 0.3
         # change the color of the card
 
-        #add a 3x4 keyboard with numbers from 0 to 9 and backspace and enter
+        MDBoxLayout:
+            orientation: "vertical"
+            padding: "8dp"
 
-        MDGridLayout:
-            cols: 3
-            rows: 4
-            padding: 10
-            spacing: 10
+            MDLabel:
+                text: "Login"
+                halign: "center"
+                font_style: "H4"
 
-            # it will be buttons
+            # show a text field to display inputed code
+            MDTextField:
+                id: code
+                hint_text: "Code"
+                helper_text: "Enter the code"
+                helper_text_mode: "on_focus"
+                password: True
+                icon_right: 'eye-off'
+                icon_right_color: app.theme_cls.primary_color
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                size_hint_x: None
+                width: 200
+
+            MDBoxLayout:
+                orientation: "vertical"
+                padding: 10
+
+                MDBoxLayout:
+                    orientation: "horizontal"
+                    padding: 10
+
+                    MDRaisedButton:
+                        text: "1"
+                        size_hint_x: 0.33
+                        size_hint_y: 1
+                        on_release: code.text += "1"
+
+                    MDRaisedButton:
+                        text: "2"
+                        size_hint_x: 0.33
+                        size_hint_y: 1
+                        on_release: code.text += "2"
+
+                    MDRaisedButton:
+                        text: "3"
+                        size_hint_x: 0.33
+                        size_hint_y: 1
+                        on_release: code.text += "3"
+                
+                MDBoxLayout:
+                    orientation: "horizontal"
+                    padding: 10
+
+                    MDRaisedButton:
+                        text: "4"
+                        size_hint_x: 0.33
+                        size_hint_y: 1
+                        on_release: code.text += "4"
+
+                    MDRaisedButton:
+                        text: "5"
+                        size_hint_x: 0.33
+                        size_hint_y: 1
+                        on_release: code.text += "5"
+
+                    MDRaisedButton:
+                        text: "6"
+                        size_hint_x: 0.33
+                        size_hint_y: 1
+                        on_release: code.text += "6"
+
+                MDBoxLayout:
+                    orientation: "horizontal"
+                    padding: 10
+
+                    MDRaisedButton:
+                        text: "7"
+                        size_hint_x: 0.33
+                        size_hint_y: 1
+                        on_release: code.text += "7"
+
+                    MDRaisedButton:
+                        text: "8"
+                        size_hint_x: 0.33
+                        size_hint_y: 1
+                        on_release: code.text += "8"
+
+                    MDRaisedButton:
+                        text: "9"
+                        size_hint_x: 0.33
+                        size_hint_y: 1
+                        on_release: code.text += "9"
+
+                MDBoxLayout:
+                    MDBoxLayout:
+                        orientation: "horizontal"
+                        padding: 10
+
+                        MDRaisedButton:
+                            text: "Clear"
+                            size_hint_x: 0.33
+                            size_hint_y: 1
+                            # on execute the function clear
+                            on_release: code.text = ""
+                        
+                        MDRaisedButton:
+                            text: "0"
+                            size_hint_x: 0.33
+                            size_hint_y: 1
+                            on_release: code.text += "0"
+
+                        MDRaisedButton:
+                            text: "Enter"
+                            size_hint_x: 0.33
+                            size_hint_y: 1
+                            # on release root.enter(code.text) and erase code.text
+                            on_release: 
+                                root.enter(code.text)
+                                code.text = ""
+
+            MDLabel:
+                id: error_label
+                text: ''
+                halign: 'center'
+                theme_text_color: 'Custom'
+                text_color: 1, 0, 0, 1
+                font_style: 'H6'
+                size_hint_y: None
+
 
 <Feedback_screen>:
     name: 'feedback_screen'
@@ -203,6 +336,7 @@ ScreenManager:
                     font_style: "H5"
                 
                 MDTextField:
+                    id: feedback_title
                     hint_text: "Enter title"
                     helper_text: "Enter title"
                     helper_text_mode: "on_focus"
@@ -216,6 +350,7 @@ ScreenManager:
                     font_style: "H5"
 
                 MDTextField:
+                    id: dish
                     name: "dish"
                     #min lenght 1
                     min_text_length: 1
@@ -228,7 +363,7 @@ ScreenManager:
                 MDDropDownItem:
                     id: drop_down
                     text: "Select dish"
-                    
+
 
 
                 MDLabel:
@@ -238,11 +373,132 @@ ScreenManager:
                 
 
                 MDTextField:
+                    id: description
                     hint_text: "Enter description"
                     helper_text: "Enter description"
                     helper_text_mode: "on_focus"
                     icon_right: "android"
                     icon_right_color: app.theme_cls.primary_color
                     required: True
+                
+            MDBoxLayout:
+                orientation: "horizontal"
+                padding: 10
 
+                MDRaisedButton:
+                    text: "Submit"
+                    size_hint_x: 0.1
+                    size_hint_y: 0.3
+                    on_release: app.root.current = 'main_screen'
+                MDFlatButton:
+                    text: "Cancel"
+                    size_hint_x: 0.1
+                    size_hint_y: 0.3
+                    on_release: app.root.current = 'main_screen'
+                
+<Config_screen>:
+    name: 'config_screen'
+    FitImage:
+        source: "assets/background.jpg"
+        # change the size of the image
+        size_hint: 1, 1
+        # change the position of the image
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+    MDCard:
+        size_hint: 0.9, 0.9
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        orientation: 'vertical'
+        padding: 10
+        opacity: 0.3
+        # change the color of the card
+
+        MDBoxLayout:
+            orientation: "vertical"
+            padding: "8dp"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+            MDLabel:
+                text: "Configuration"
+                halign: "center"
+                font_style: "H4"
+
+                MDRaisedButton:
+                    text: "See Statistics"
+                    size_hint_x: 0.1
+                    size_hint_y: 0.3
+                    on_release: app.root.current = 'statistics_screen'
+                MDRaisedButton:
+                    text: "See Feedback"
+                    size_hint_x: 0.1
+                    size_hint_y: 0.3
+                    on_release: app.root.current = 'feedback_screen'
+                
+                MDRaisedButton:
+                    text: "Exit App"
+                    size_hint_x: 0.1
+                    size_hint_y: 0.3
+                    on_release: app.stop() 
+
+                MDRaisedButton:
+                    text: "Back"
+                    size_hint_x: 0.1
+                    size_hint_y: 0.3
+                    on_release: app.root.current = 'main_screen'
+
+<Statistics_screen>:
+    FitImage:
+        source: "assets/background.jpg"
+        # change the size of the image
+        size_hint: 1, 1
+        # change the position of the image
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+    MDCard:
+        size_hint: 0.9, 0.9
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        orientation: 'vertical'
+        padding: 10
+        opacity: 0.3
+        # change the color of the card
+
+        MDBoxLayout:
+            orientation: "vertical"
+            padding: "8dp"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+            MDLabel:
+                text: "Dishes Statistics"
+                halign: "center"
+                font_style: "H4"
+
+<Feedback_screen>:
+    FitImage:
+        source: "assets/background.jpg"
+        # change the size of the image
+        size_hint: 1, 1
+        # change the position of the image
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+    MDCard:
+        size_hint: 0.9, 0.9
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        orientation: 'vertical'
+        padding: 10
+        opacity: 0.3
+        # change the color of the card
+
+        MDBoxLayout:
+            orientation: "vertical"
+            padding: "8dp"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+            MDLabel:
+                text: "Feedback"
+                halign: "center"
+                font_style: "H4"
+
+                #show a table with the feedback
+
+                
 
