@@ -4,6 +4,7 @@ from kivy.logger import Logger
 from database_handler import DatabaseHandler
 from kivymd.uix.list import MDList, OneLineListItem
 from kivymd.uix.dropdownitem import MDDropDownItem
+from kivymd.uix.datatables import MDDataTable
 
 
 
@@ -27,6 +28,78 @@ class Login_screen(MDScreen):
 
 class Config_screen(MDScreen):
     pass
+
+class Statistics_screen(MDScreen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.checked_rows = None
+        self.data_table = MDDataTable(
+            size_hint=(0.9, 0.6),
+            use_pagination=True,
+            column_data=[
+                ("Dish", 30),
+                ("Likes", 30),
+                ("Dislikes", 30),
+                ("Neutrals", 30),
+            ],
+            row_data=[
+                ("Pizza", "1", "0", "0"),
+            ]
+        )
+        self.data_table.bind(on_row_press=self.on_row_press)
+        self.data_table.bind(on_check_press=self.on_check_press)
+        self.add_widget(self.data_table)
+
+    def on_pre_enter(self, *args):
+        self.load()
+
+    @staticmethod
+    def on_row_press(table, row):
+        print(f"Row was pressed. Data is: {row.text}")
+
+    @staticmethod
+    def on_check_press(table, current_row):
+        print(f"Row {current_row} was checked")
+    
+    def load(self):
+        #TODO: load data from database
+        pass
+
+class Feedback_view_screen(MDScreen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.checked_rows = None
+        self.data_table = MDDataTable(
+            size_hint=(0.9, 0.6),
+            use_pagination=True,
+            column_data=[
+                ("Dish", 30),
+                ("Likes", 30),
+                ("Dislikes", 30),
+                ("Neutrals", 30),
+            ],
+            row_data=[
+                ("Pizza", "1", "0", "0"),
+            ]
+        )
+        self.data_table.bind(on_row_press=self.on_row_press)
+        self.data_table.bind(on_check_press=self.on_check_press)
+        self.add_widget(self.data_table)
+
+    def on_pre_enter(self, *args):
+        self.load()
+
+    @staticmethod
+    def on_row_press(table, row):
+        print(f"Row was pressed. Data is: {row.text}")
+
+    @staticmethod
+    def on_check_press(table, current_row):
+        print(f"Row {current_row} was checked")
+    
+    def load(self):
+        #TODO: load data from database
+        pass
 
 class Feedback_screen(MDScreen):
     #there is a text field called dishes, when something is typed we will used the database handler to search for dishes that match the input and display them in a list

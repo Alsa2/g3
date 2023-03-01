@@ -16,8 +16,8 @@ ScreenManager:
     Statistics_screen:
         name: 'statistics_screen'
 
-    Feedback_screen:
-        name: 'feedback_screen'
+    Feedback_view_screen:
+        name: 'feedback_view_screen'
 
 
 
@@ -417,34 +417,40 @@ ScreenManager:
             orientation: "vertical"
             padding: "8dp"
             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            halign: "center"
 
             MDLabel:
                 text: "Configuration"
-                halign: "center"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
                 font_style: "H4"
 
-                MDRaisedButton:
-                    text: "See Statistics"
-                    size_hint_x: 0.1
-                    size_hint_y: 0.3
-                    on_release: app.root.current = 'statistics_screen'
-                MDRaisedButton:
-                    text: "See Feedback"
-                    size_hint_x: 0.1
-                    size_hint_y: 0.3
-                    on_release: app.root.current = 'feedback_screen'
-                
-                MDRaisedButton:
-                    text: "Exit App"
-                    size_hint_x: 0.1
-                    size_hint_y: 0.3
-                    on_release: app.stop() 
+            MDRaisedButton:
+                text: "See Statistics"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                on_release: app.root.current = 'statistics_screen'
+                size_hint_x: 0.95
+                size_hint_y: 1
+            MDRaisedButton:
+                text: "See Feedback"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                on_release: app.root.current = 'feedback_view_screen'
+                size_hint_x: 0.95
+                size_hint_y: 1
+            
+            MDRaisedButton:
+                text: "Exit App"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                on_release: app.stop() 
+                size_hint_x: 0.95
+                size_hint_y: 1
 
-                MDRaisedButton:
-                    text: "Back"
-                    size_hint_x: 0.1
-                    size_hint_y: 0.3
-                    on_release: app.root.current = 'main_screen'
+            MDRaisedButton:
+                text: "Back"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                on_release: app.root.current = 'main_screen'
+                size_hint_x: 0.95
+                size_hint_y: 1
+
 
 <Statistics_screen>:
     FitImage:
@@ -454,25 +460,7 @@ ScreenManager:
         # change the position of the image
         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
 
-    MDCard:
-        size_hint: 0.9, 0.9
-        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-        orientation: 'vertical'
-        padding: 10
-        opacity: 0.3
-        # change the color of the card
-
-        MDBoxLayout:
-            orientation: "vertical"
-            padding: "8dp"
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-
-            MDLabel:
-                text: "Dishes Statistics"
-                halign: "center"
-                font_style: "H4"
-
-<Feedback_screen>:
+<Feedback_view_screen>:
     FitImage:
         source: "assets/background.jpg"
         # change the size of the image
@@ -500,5 +488,5 @@ ScreenManager:
 
                 #show a table with the feedback
 
-                
+
 
