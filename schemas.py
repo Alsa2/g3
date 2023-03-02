@@ -31,6 +31,7 @@ class FeedBack(Base):
     __tablename__ = 'feedback'
     id = Column(Integer, primary_key=True)
     dish_id = Column(Integer, ForeignKey('dish.id'))
+    feedback_title = Column(String)
     dish = relationship("Dish", back_populates="feedback")
     date = Column(String)
     feedback = Column(String)

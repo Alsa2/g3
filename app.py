@@ -60,9 +60,10 @@ class Statistics_screen(MDScreen):
             background_color=(1, 1, 1, 0.3),
             background_color_cell=(1, 1, 1, 0.3),
             pos_hint={'center_x': 0.5, 'center_y': 0.5},
+            check=True,
             column_data=[
-                ("Dish", .2),
-                ("Likes", 40),
+                ("Dish", 50),
+                ("Likes", 30),
                 ("Dislikes", 30),
                 ("Neutrals", 30),
             ],
@@ -91,6 +92,20 @@ class Statistics_screen(MDScreen):
                 (dish.dish.name, str(dish.likes), str(dish.dislikes), str(dish.neutrals)))
         db.close()
         Logger.info('Statistics loaded')
+    
+    def reset_selected_statistics(self):
+        Logger.info('Resetting selected statistics') 
+        self.checked_rows = self.data_table.get_row_checks()
+        if self.checked_rows is None: Logger.warn("Statistics: No Selected Entry"); return
+        db = DatabaseHandler()
+        for row in self.checked_rows:
+            dish_id = db.get_dish_id(row[0])
+            if dish_id is None: Logger.warning(f'Wrong dish name: {row.text}'); return
+            db.reset_dish_stats(dish_id)
+        db.close()
+        self.load()
+        self.checked_rows = None
+
 
 class Feedback_view_screen(MDScreen):
     def __init__(self, **kwargs):
@@ -106,11 +121,12 @@ class Feedback_view_screen(MDScreen):
             background_color=(1, 1, 1, 0.3),
             background_color_cell=(1, 1, 1, 0.3),
             pos_hint={'center_x': 0.5, 'center_y': 0.5},
+            check=True,
             column_data=[
-                ("Dish", 30),
-                ("Likes", 30),
-                ("Dislikes", 30),
-                ("Neutrals", 30),
+                ("Title", 60),
+                ("Feedback", 200),
+                ("Date", 39),
+                ("Status", 35),
             ],
             row_data=[]
         )
@@ -128,9 +144,51 @@ class Feedback_view_screen(MDScreen):
         print(f"Row {current_row} was checked")
 
     def load(self):
-        pass
+        Logger.info('Loading Feedback')
+        self.data_table.row_data = []
+        db = DatabaseHandler()
+        feedbacks = db.get_all_feedback()
+        if feedbacks == "": Logger.warning('No feedbacks found'); return
+        for feedback in feedbacks:
+            self.data_table.row_data.append( #only show the first 20 characters of the feedback
+                (feedback.feedback_title, feedback.feedback, feedback.date, feedback.read_status))
+        Logger.info('Feedback: Feedback loaded')
 
+    def open_selected_feedback(self):
+        Logger.info('Feedback: Opening selected feedback')
+        self.checked_rows = self.data_table.get_row_checks()
+        if self.checked_rows == []: Logger.warning("Feedback: No Selected Entry"); self.ids.error_label_feedback.text = "Select at least one feedback"; self.ids.error_label_feedback.color = (1, 0, 0, 1); return
+        elif len(self.checked_rows) > 1: Logger.warning("Feedback: Multiple Selected Entries"); self.ids.error_label_feedback.text = "Select only one feedback"; self.ids.error_label_feedback.color = (1, 0, 0, 1); return
+        else: self.ids.error_label_feedback.text = "Feedback"; self.ids.error_label_feedback.color = (1, 1, 1, 1)
 
+    def make_selected_feedback_read(self):
+        Logger.info('Feedback: Marking selected feedback as read')
+        self.checked_rows = self.data_table.get_row_checks()
+        if self.checked_rows == []: Logger.warning("Feedback: No Selected Entry"); return
+        db = DatabaseHandler()
+        for row in self.checked_rows:
+            feedback_id = db.get_feedback_id(row[0])
+            if feedback_id is None: Logger.warning(f'Wrong feedback title: {row.text}'); return
+            db.mark_feedback_as_read(feedback_id)
+        db.close()
+        self.load()
+        self.checked_rows = None
+
+    def delete_selected_feedback(self):
+        Logger.info('Deleting selected feedback')
+        self.checked_rows = self.data_table.get_row_checks()
+        if self.checked_rows == []: Logger.warning("Feedback: No Selected Entry"); return
+        db = DatabaseHandler()
+        for row in self.checked_rows:
+            feedback_id = db.get_feedback_id(row[0])
+            if feedback_id is None: Logger.warning(f'Feedback: Wrong feedback title: {row.text}'); return
+            db.delete_feedback(feedback_id)
+        db.close()
+        self.load()
+        self.checked_rows = None
+
+class Feedback_consultation_screen(MDScreen):
+    pass
 
 class Feedback_screen(MDScreen):
     def __init__(self, **kwargs):
@@ -162,21 +220,18 @@ class Feedback_screen(MDScreen):
         self.ids.dish_name.text = instance.text
         self.ids.dish_suggestion.clear_widgets()
 
-    def submit_feedback(self):
-        try:
-            title = self.ids.feedback_title.text
-        except:
-            Logger.warning('No title')
-            return
-        dish = self.ids.dish.text
-        description = self.ids.description.text
+    def submit_feedback(self, title, dish, description):
+        if dish == '': Logger.warning('No dish selected'); dish = 'None';
 
-        Logger.info('submit_feedback: ' + title +
-                    ' ' + dish + ' ' + description)
-        pass
+        Logger.info('submit_feedback: ' + title +' | ' + dish + ' | ' + description)
 
-    pass
+        db = DatabaseHandler()
+        db.add_feedback(str(title), db.get_dish_id(dish), str(description))
+        db.close()
 
+        self.ids.feedback_title.text = ''
+        self.ids.dish_name.text = ''
+        self.ids.description.text = ''
 
 class layout(MDApp):
     def build(self):

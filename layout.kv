@@ -19,6 +19,9 @@ ScreenManager:
     Feedback_view_screen:
         name: 'feedback_view_screen'
 
+    Feedback_consultation_screen:
+        name: 'feedback_consultation_screen'
+
 
 
 <Main_Screen>:
@@ -407,7 +410,9 @@ ScreenManager:
                     text: "Submit"
                     size_hint_x: 0.1
                     size_hint_y: 0.3
-                    on_release: app.root.current = 'main_screen'
+                    on_release: 
+                        app.root.current = 'main_screen'
+                        root.submit_feedback(feedback_title.text, dish_name.text, description.text)
                 MDFlatButton:
                     text: "Cancel"
                     size_hint_x: 0.1
@@ -478,20 +483,30 @@ ScreenManager:
         size_hint: 1, 1
         # change the position of the image
         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-    MDRaisedButton:
-        id : back
-        text:"Back"
-        size_hint: .2,.1
-        pos_hint: {"center_x":.1 , "center_y":.95}
-        md_bg_color: "#e63946"
-        on_press:
-            root.manager.current = "config_screen"
-            root.manager.transition.direction = "left"
+
+    MDBoxLayout:
+        pos_hint: {"center_x":.5, "center_y":.05}
+        size_hint: 1,.1
         MDBoxLayout:
-            pos_hint: {"center_x":.5, "center_y":.05}
-            size_hint: 1,.1
-            MDBoxLayout:
-                size_hint: .5,1
+            size_hint: .5,1
+            orientation: "horizontal"
+            MDRaisedButton:
+                id : back
+                text:"Back"
+                size_hint_x: 0.95
+                size_hint_y: 1
+                pos_hint: {"center_x":.5, "center_y":.5}
+                on_press:
+                    root.manager.current = "config_screen"
+                    root.manager.transition.direction = "left"
+            MDRaisedButton:
+                text: "Erase Selected Statistics"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                on_release: root.reset_selected_statistics()
+                size_hint_x: 0.95
+                size_hint_y: 1
+                pos_hint: {"center_x":.5, "center_y":.5}
+                md_bg_color: "#e63946"
 
 <Feedback_view_screen>:
     FitImage:
@@ -500,36 +515,84 @@ ScreenManager:
         size_hint: 1, 1
         # change the position of the image
         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-    
-    MDRaisedButton:
-        id : back
-        text:"Back"
-        size_hint: .2,.1
-        pos_hint: {"center_x":.1 , "center_y":.95}
-        md_bg_color: "#e63946"
-        on_press:
-            root.manager.current = "config_screen"
-            root.manager.transition.direction = "left"
 
-    MDCard:
-        size_hint: 0.9, 0.9
-        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-        orientation: 'vertical'
-        padding: 10
-        opacity: 0.3
-        # change the color of the card
 
+    MDLabel:
+        id: error_label_feedback
+        text: "Feedback"
+        #set to the top midle of the screen
+        pos_hint: {'center_x': 0.5, 'center_y': .9}
+        font_style: "H4"
+        halign: "center"
+        color: 1, 1, 1, 1
+
+    MDBoxLayout:
+        #put it on the top midle of the screen
+        pos_hint: {"center_x":.5, "center_y":.05}
+        size_hint: 1,.1
         MDBoxLayout:
-            orientation: "vertical"
-            padding: "8dp"
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            size_hint: .5,1
+            orientation: "horizontal"
+            MDRaisedButton:
+                id : back
+                text:"Back"
+                size_hint_x: 0.95
+                size_hint_y: 1
+                pos_hint: {"center_x":.5, "center_y":.5}
+                on_press:
+                    root.manager.current = "config_screen"
+                    root.manager.transition.direction = "left"
+            MDRaisedButton:
+                text: "Open Selected Feedback"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                on_release: root.open_selected_feedback()
+                size_hint_x: 0.95
+                size_hint_y: 1
+                pos_hint: {"center_x":.5, "center_y":.5}
 
-            MDLabel:
-                text: "Feedback"
-                halign: "center"
-                font_style: "H4"
+            MDRaisedButton:
+                text: "Mark Selected Feedback as Read"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                on_release: root.make_selected_feedback_read()
+                size_hint_x: 0.95
+                size_hint_y: 1
+                pos_hint: {"center_x":.5, "center_y":.5}
 
-                #show a table with the feedback
+            MDRaisedButton:
+                text: "Erase Selected Statistics"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                on_release: root.delete_selected_feedback()
+                size_hint_x: 0.95
+                size_hint_y: 1
+                pos_hint: {"center_x":.5, "center_y":.5}
+                md_bg_color: "#e63946"
 
 
 
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: "8dp"
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+        MDLabel:
+            text: "Feedback"
+            halign: "center"
+            font_style: "H4"
+
+            #show a table with the feedback
+
+<Feedback_consultation_screen>:
+    FitImage:
+        source: "assets/background.jpg"
+        # change the size of the image
+        size_hint: 1, 1
+        # change the position of the image
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+    MDLabel:
+        id: error_label_feedback
+        text: "Configuration"
+        #set to the top midle of the screen
+        pos_hint: {'center_x': 0.5, 'center_y': .9}
+        font_style: "H4"
+        halign: "center"
+        color: 1, 1, 1, 1

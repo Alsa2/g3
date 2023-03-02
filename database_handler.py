@@ -99,12 +99,20 @@ class DatabaseHandler():
         dish_stats = self.session.query(DishStats).order_by(
             DishStats.dislikes.desc()).first()
         return dish_stats
+    
+    def reset_dish_stats(self, dish_id):
+        dish_stats = self.session.query(DishStats).filter_by(
+            dish_id=dish_id).first()
+        dish_stats.likes = 0
+        dish_stats.dislikes = 0
+        dish_stats.neutrals = 0
+        self.session.commit()
+        return None
 
     # feedback
-    def add_feedback(self, dish_id, feedback):
+    def add_feedback(self, feedback_title, dish_id, feedback):
         date = datetime.datetime.now().date()
-        feedback = FeedBack(dish_id=dish_id, date=date,
-                            feedback=feedback, read_status=0)
+        feedback = FeedBack(feedback_title=feedback_title, dish_id=dish_id, feedback=feedback, date=date, read_status=0)
         self.session.add(feedback)
         self.session.commit()
         return None
@@ -113,21 +121,58 @@ class DatabaseHandler():
     def get_feedback(self, dish_id):
         feedback = self.session.query(FeedBack).filter_by(
             dish_id=dish_id).order_by(FeedBack.read_status, FeedBack.date).all()
+        for f in feedback:
+            if f.read_status == 0:
+                f.read_status = "Non Read"
+            else:
+                f.read_status = "Read"
         return feedback
+
+    # show the unread feedback first (read_status = 0) and then the read feedback (read_status = 1), also filtered by date
+    def get_all_feedback(self):
+        feedback = self.session.query(FeedBack).order_by(
+            FeedBack.read_status, FeedBack.date).all()
+        for f in feedback:
+            if f.read_status == 0:
+                f.read_status = "Non Read"
+            else:
+                f.read_status = "Read"
+        return feedback
+
+    def get_feedback_id(self, title):
+        feedback = self.session.query(FeedBack).filter_by(
+            feedback_title=title).first()
+        return feedback.id
+
+    def mark_feedback_as_read(self, feedback_id):
+        feedback = self.session.query(FeedBack).filter_by(
+            id=feedback_id).first()
+        feedback.read_status = 1
+        self.session.commit()
+        return None
+    
+    def delete_feedback(self, feedback_id):
+        feedback = self.session.query(FeedBack).filter_by(
+            id=feedback_id).first()
+        self.session.delete(feedback)
+        self.session.commit()
+        return None
 
 # Hard coded example usage: (add vegetable dish, meat and dessert)
 """
 create_db()
 db = DatabaseHandler()
-db.add_dish('Vegetable', 'vegetable', 'carrot, potato, onion')
-db.add_dish('Meat', 'meat', 'beef, pork, chicken')
-db.add_dish('Dessert', 'dessert', 'ice cream, cake, chocolate')
+
 # add them to dish stats
 db.change_dish_stats(1, 0, 0, 0)
 
 
-
+create_db()
 db = DatabaseHandler()
+db.add_dish('Vegetable', 'vegetable', 'carrot, potato, onion')
+db.add_dish('Meat', 'meat', 'beef, pork, chicken')
+db.add_dish('Dessert', 'dessert', 'ice cream, cake, chocolate')
+
 db.add_dish("Chicken Curry", "meat", "chicken, curry, rice")
 db.add_dish("Creme Brulee", "dessert", "egg, sugar, cream")
 db.add_dish("Pasta", "vegetable", "pasta, tomato, cheese")
