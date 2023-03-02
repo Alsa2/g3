@@ -30,6 +30,11 @@ class DatabaseHandler():
         dish = Dish(name=name, type=type, ingredients=ingredients)
         self.session.add(dish)
         self.session.commit()
+        dish_id = self.get_dish_id(name)
+        dish_stats = DishStats(dish_id=dish_id, date=datetime.datetime.now(
+        ).date(), likes=0, dislikes=0, neutrals=0)
+        self.session.add(dish_stats)
+        self.session.commit()
         return None
 
     def add_menu(self, date, meal, notes, dish_id):
@@ -61,11 +66,18 @@ class DatabaseHandler():
 
     # stats
 
-    def add_dish_stats(self, dish_id, likes, dislikes, neutrals):
-        date = datetime.datetime.now().date()
-        dish_stats = DishStats(dish_id=dish_id, date=date,
-                               likes=likes, dislikes=dislikes, neutrals=neutrals)
-        self.session.add(dish_stats)
+    def get_dish_id(self, dish_name):
+        dish = self.session.query(Dish).filter_by(name=dish_name).first()
+        if dish is None:
+            return None
+        return dish.id
+
+    def change_dish_stats(self, dish_id, like:int, dislike:int, neutral:int):
+        dish_stats = self.session.query(DishStats).filter_by(
+            dish_id=dish_id).first()
+        dish_stats.likes += like
+        dish_stats.dislikes += dislike
+        dish_stats.neutrals += neutral
         self.session.commit()
         return None
 
@@ -99,22 +111,13 @@ class DatabaseHandler():
             dish_id=dish_id).order_by(FeedBack.read_status).all()
         return feedback
 
-
-# Example usage:
+# Hard coded example usage: (add vegetable dish, meat and dessert)
+"""
 create_db()
 db = DatabaseHandler()
-db.add_dish("Pasta", "main", "pasta, tomato sauce")
-db.add_menu("2019-01-01", 1, "vegetarian", 1)
-db.add_dish_stats(1, 3, 0, 0)
-
-print(db.get_dish(1).name)
-print(db.get_menu("2019-01-01", 1).notes)
-print(db.query_dishes("Pasta")[0].name)
-# get last day stats for dish 1
-print(db.get_dish_stats(1)[-1].likes)
-
-db.add_feedback(1, "This dish is great!")
-db.add_feedback(1, "This dish is not great!")
-print(db.get_feedback(1))
-
-db.close()
+db.add_dish('Vegetable', 'vegetable', 'carrot, potato, onion')
+db.add_dish('Meat', 'meat', 'beef, pork, chicken')
+db.add_dish('Dessert', 'dessert', 'ice cream, cake, chocolate')
+# add them to dish stats
+db.change_dish_stats(1, 0, 0, 0)
+"""

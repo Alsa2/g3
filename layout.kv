@@ -50,7 +50,8 @@ ScreenManager:
             orientation: 'vertical'
             padding: 10
             #make the card a bit transparent
-            opacity: 0.3
+            # opacity: 0.3 use alpha instead
+            md_bg_color: 1, 1, 1, 0.3
 
 
             MDBoxLayout:
@@ -63,12 +64,13 @@ ScreenManager:
                     text: "Fast Feedback"
                     halign: "center"
                     font_style: "H4"
-                
+
                 MDBoxLayout:
                     orientation: "vertical"
                     padding: 10
 
                     MDLabel:
+                        id: dish_name_vegetable
                         text: "Vegetable"
                         halign: "center"
                         font_style: "H5"
@@ -79,16 +81,19 @@ ScreenManager:
                             text: ":("
                             size_hint_x: 0.33
                             size_hint_y: 1
+                            on_release: root.dish_vote(dish_name_vegetable.text, -1)
 
                         MDRaisedButton:
                             text: ":|"
                             size_hint_x: 0.33
                             size_hint_y: 1
+                            on_release: root.dish_vote(dish_name_vegetable.text, 0)
 
                         MDRaisedButton:
                             text: ":)"
                             size_hint_x: 0.33
                             size_hint_y: 1
+                            on_release: root.dish_vote(dish_name_vegetable.text, 1)
 
 
                 MDBoxLayout:
@@ -96,6 +101,7 @@ ScreenManager:
                     padding: 10
 
                     MDLabel:
+                        id: dish_name_meat
                         text: "Meat"
                         halign: "center"
                         font_style: "H5"
@@ -106,22 +112,26 @@ ScreenManager:
                             text: ":("
                             size_hint_x: 0.33
                             size_hint_y: 1
+                            on_release: root.dish_vote(dish_name_meat.text, -1)
 
                         MDRaisedButton:
                             text: ":|"
                             size_hint_x: 0.33
                             size_hint_y: 1
+                            on_release: root.dish_vote(dish_name_meat.text, 0)
 
                         MDRaisedButton:
                             text: ":)"
                             size_hint_x: 0.33
                             size_hint_y: 1
+                            on_release: root.dish_vote(dish_name_meat.text, 1)
 
                 MDBoxLayout:
                     orientation: "vertical"
                     padding: 10
 
                     MDLabel:
+                        id: dish_name_dessert
                         text: "Dessert"
                         halign: "center"
                         font_style: "H5"
@@ -132,16 +142,20 @@ ScreenManager:
                             text: ":("
                             size_hint_x: 0.33
                             size_hint_y: 1
+                            on_release: root.dish_vote(dish_name_dessert.text, -1)
+
 
                         MDRaisedButton:
                             text: ":|"
                             size_hint_x: 0.33
                             size_hint_y: 1
+                            on_release: root.dish_vote(dish_name_dessert.text, 0)
 
                         MDRaisedButton:
                             text: ":)"
                             size_hint_x: 0.33
                             size_hint_y: 1
+                            on_release: root.dish_vote(dish_name_dessert.text, 1)
 
                 MDBoxLayout:
                     orientation: "horizontal"
@@ -163,11 +177,11 @@ ScreenManager:
         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
 
     MDCard:
-        size_hint: 0.9, 0.9
+        size_hint: 0.5, 0.9
         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
         orientation: 'vertical'
         padding: 10
-        opacity: 0.3
+        md_bg_color: 1, 1, 1, 0.3
         # change the color of the card
 
         MDBoxLayout:
@@ -199,6 +213,7 @@ ScreenManager:
                 MDBoxLayout:
                     orientation: "horizontal"
                     padding: 10
+                    opacity: 1
 
                     MDRaisedButton:
                         text: "1"
@@ -313,7 +328,7 @@ ScreenManager:
         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
         orientation: 'vertical'
         padding: 10
-        opacity: 0.3
+        md_bg_color: 1, 1, 1, 0.3
         # change the color of the card
 
         MDBoxLayout:
@@ -410,7 +425,7 @@ ScreenManager:
         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
         orientation: 'vertical'
         padding: 10
-        opacity: 0.3
+        md_bg_color: 1, 1, 1, 0.3
         # change the color of the card
 
         MDBoxLayout:
@@ -423,6 +438,7 @@ ScreenManager:
                 text: "Configuration"
                 pos_hint: {'center_x': 0.5, 'center_y': 0.5}
                 font_style: "H4"
+                halign: "center"
 
             MDRaisedButton:
                 text: "See Statistics"

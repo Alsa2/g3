@@ -24,7 +24,7 @@ class DishStats(Base):
     date = Column(String)
     likes = Column(Integer)
     dislikes = Column(Integer)
-    neutrals = Column(String)
+    neutrals = Column(Integer)
 
 
 class FeedBack(Base):
