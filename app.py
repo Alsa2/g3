@@ -2,9 +2,9 @@ from kivymd.app import MDApp
 from kivymd.uix.screen import MDScreen
 from kivy.logger import Logger
 from database_handler import DatabaseHandler
-from kivymd.uix.list import MDList, OneLineListItem
-from kivymd.uix.dropdownitem import MDDropDownItem
 from kivymd.uix.datatables import MDDataTable
+from kivy.uix.button import Button
+
 
 
 class Main_screen(MDScreen):
@@ -61,14 +61,12 @@ class Statistics_screen(MDScreen):
             background_color_cell=(1, 1, 1, 0.3),
             pos_hint={'center_x': 0.5, 'center_y': 0.5},
             column_data=[
-                ("Dish", 30),
-                ("Likes", 30),
+                ("Dish", .2),
+                ("Likes", 40),
                 ("Dislikes", 30),
                 ("Neutrals", 30),
             ],
-            row_data=[
-                ("Pizza", "1", "0", "0"),
-            ]
+            row_data=[]
         )
         self.data_table.bind(on_row_press=self.on_row_press)
         self.data_table.bind(on_check_press=self.on_check_press)
@@ -84,9 +82,15 @@ class Statistics_screen(MDScreen):
         print(f"Row {current_row} was checked")
 
     def load(self):
-        # TODO: load data from database
-        pass
-
+        Logger.info('Loading Statistics')
+        db = DatabaseHandler()
+        dishes = db.get_all_dish_stats()
+        if dishes == "": Logger.warning('No dishes found'); return
+        for dish in dishes:
+            self.data_table.row_data.append(
+                (dish.dish.name, str(dish.likes), str(dish.dislikes), str(dish.neutrals)))
+        db.close()
+        Logger.info('Statistics loaded')
 
 class Feedback_view_screen(MDScreen):
     def __init__(self, **kwargs):
@@ -108,9 +112,7 @@ class Feedback_view_screen(MDScreen):
                 ("Dislikes", 30),
                 ("Neutrals", 30),
             ],
-            row_data=[
-                ("Pizza", "1", "0", "0"),
-            ]
+            row_data=[]
         )
         self.data_table.bind(on_row_press=self.on_row_press)
         self.data_table.bind(on_check_press=self.on_check_press)
@@ -126,13 +128,19 @@ class Feedback_view_screen(MDScreen):
         print(f"Row {current_row} was checked")
 
     def load(self):
-        # TODO: load data from database
         pass
 
 
+
 class Feedback_screen(MDScreen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        #define the parent id: dish_suggestion
+        #self.ids.dish_suggestion.clear_widgets()
+
     # there is a text field called dishes, when something is typed we will used the database handler to search for dishes that match the input and display them in a list
     def search_dish(self, dishes):
+        self.ids.dish_suggestion.clear_widgets()
         if dishes == '':
             return
         else:
@@ -145,8 +153,14 @@ class Feedback_screen(MDScreen):
                 return
             for dish in query:
                 Logger.info('Dish: ' + dish.name)
-                self.ids.drop_down.add_widget(MDDropDownItem(text=dish.name))
+                #there is a BDBoxLayout called dish_suggestion, we will add the dishes to it in form of buttons
+                self.ids.dish_suggestion.add_widget(
+                    Button(text=dish.name, on_release=self.set_dish))
             db.close()
+
+    def set_dish(self, instance):
+        self.ids.dish_name.text = instance.text
+        self.ids.dish_suggestion.clear_widgets()
 
     def submit_feedback(self):
         try:

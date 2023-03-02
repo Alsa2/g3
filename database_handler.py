@@ -81,6 +81,10 @@ class DatabaseHandler():
         self.session.commit()
         return None
 
+    def get_all_dish_stats(self): #show the most recent dish stats first
+        dish_stats = self.session.query(DishStats).order_by(DishStats.date.desc()).all()
+        return dish_stats
+
     def get_dish_stats(self, dish_id):
         dish_stats = self.session.query(
             DishStats).filter_by(dish_id=dish_id).all()
@@ -105,10 +109,10 @@ class DatabaseHandler():
         self.session.commit()
         return None
 
-    # show the unread feedback first (read_status = 0) and then the read feedback (read_status = 1)
+    # show the unread feedback first (read_status = 0) and then the read feedback (read_status = 1), also filtered by date
     def get_feedback(self, dish_id):
         feedback = self.session.query(FeedBack).filter_by(
-            dish_id=dish_id).order_by(FeedBack.read_status).all()
+            dish_id=dish_id).order_by(FeedBack.read_status, FeedBack.date).all()
         return feedback
 
 # Hard coded example usage: (add vegetable dish, meat and dessert)
@@ -121,3 +125,8 @@ db.add_dish('Dessert', 'dessert', 'ice cream, cake, chocolate')
 # add them to dish stats
 db.change_dish_stats(1, 0, 0, 0)
 """
+
+
+db = DatabaseHandler()
+dish_stats = db.get_all_dish_stats()
+db.close()
