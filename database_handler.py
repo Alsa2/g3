@@ -124,9 +124,15 @@ db.add_dish('Meat', 'meat', 'beef, pork, chicken')
 db.add_dish('Dessert', 'dessert', 'ice cream, cake, chocolate')
 # add them to dish stats
 db.change_dish_stats(1, 0, 0, 0)
-"""
+
 
 
 db = DatabaseHandler()
-dish_stats = db.get_all_dish_stats()
-db.close()
+db.add_dish("Chicken Curry", "meat", "chicken, curry, rice")
+db.add_dish("Creme Brulee", "dessert", "egg, sugar, cream")
+db.add_dish("Pasta", "vegetable", "pasta, tomato, cheese")
+db.add_dish("Pizza", "meat", "dough, tomato, cheese")
+db.add_dish("Salad", "vegetable", "lettuce, tomato, cucumber")
+db.add_dish("Steak", "meat", "beef, salt, pepper")
+db.add_dish("Sushi", "meat", "rice, fish, seaweed")
+"""
