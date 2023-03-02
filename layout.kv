@@ -365,7 +365,7 @@ ScreenManager:
                     font_style: "H5"
 
                 MDTextField:
-                    id: dish
+                    id: dish_name
                     name: "dish"
                     #min lenght 1
                     min_text_length: 1
@@ -375,9 +375,10 @@ ScreenManager:
                 #self.ids.dishes.add_widget(MDDropDownItem(text=dish.name))
             
 
-                MDDropDownItem:
-                    id: drop_down
-                    text: "Select dish"
+                MDBoxLayout:
+                    id: dish_suggestion
+                    orientation: "horizontal"
+                    padding: 10
 
 
 
