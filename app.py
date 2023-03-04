@@ -4,8 +4,11 @@ from kivy.logger import Logger
 from database_handler import DatabaseHandler
 from kivymd.uix.datatables import MDDataTable
 from kivy.uix.button import Button
-
-
+from kivy.uix.label import Label
+from kivy.uix.popup import Popup
+from kivy.uix.boxlayout import BoxLayout
+from kivymd.icon_definitions import md_icons
+import time
 
 class Main_screen(MDScreen):
     def open_config(self):
@@ -159,9 +162,11 @@ class Feedback_view_screen(MDScreen):
         self.checked_rows = self.data_table.get_row_checks()
         if self.checked_rows == []: Logger.warning("Feedback: No Selected Entry"); self.ids.error_label_feedback.text = "Select at least one feedback"; self.ids.error_label_feedback.color = (1, 0, 0, 1); return
         elif len(self.checked_rows) > 1: Logger.warning("Feedback: Multiple Selected Entries"); self.ids.error_label_feedback.text = "Select only one feedback"; self.ids.error_label_feedback.color = (1, 0, 0, 1); return
-        else: self.ids.error_label_feedback.text = "Feedback"; self.ids.error_label_feedback.color = (1, 1, 1, 1)
-
-    def make_selected_feedback_read(self):
+        else: self.ids.error_label_feedback.text = "Feedback"; self.ids.error_label_feedback.color = (1, 1, 1, 1); self.manager.current = 'feedback_consultation_screen'; 
+        #send the feedback title to the feedback_consultation_screen
+        print(self.checked_rows)
+        self.manager.get_screen('feedback_consultation_screen').ids.feedback_consultation_title.text = self.checked_rows[0][0]
+        self.checked_rows = None
         Logger.info('Feedback: Marking selected feedback as read')
         self.checked_rows = self.data_table.get_row_checks()
         if self.checked_rows == []: Logger.warning("Feedback: No Selected Entry"); return
@@ -172,7 +177,6 @@ class Feedback_view_screen(MDScreen):
             db.mark_feedback_as_read(feedback_id)
         db.close()
         self.load()
-        self.checked_rows = None
 
     def delete_selected_feedback(self):
         Logger.info('Deleting selected feedback')
@@ -188,7 +192,43 @@ class Feedback_view_screen(MDScreen):
         self.checked_rows = None
 
 class Feedback_consultation_screen(MDScreen):
-    pass
+    def on_enter(self, *args):
+        feedback_title = self.ids.feedback_consultation_title.text
+        Logger.info(f'Feedback: Opening feedback: {feedback_title}')
+        db = DatabaseHandler()
+        feedback = db.get_feedback_id(feedback_title)
+        feedback = db.get_feedback_by_id(feedback)
+        Logger.info(f'Feedback: {feedback}, {feedback.feedback_title}, {feedback.feedback}, {feedback.date}, {feedback.dish.name}')
+        if feedback == []: Logger.warning('Feedback: No feedback found'); return
+        dish = feedback.dish.name
+        print(dish)
+        self.ids.feedback_consultation_title.text = feedback.feedback_title
+        self.ids.feedback_consultation_date.text = feedback.date
+        self.ids.feedback_consultation_selected_dishes = str(dish)
+        self.ids.feedback_consultation_description.text = feedback.feedback
+        db.close()
+
+    def delete_feedback(self):
+        Logger.info('Feedback: Deleting feedback')
+        feedback_title = self.ids.feedback_consultation_title.text
+        db = DatabaseHandler()
+        feedback_id = db.get_feedback_id(feedback_title)
+        if feedback_id is None: Logger.warning(f'Feedback: Wrong feedback title: {feedback_title}'); return
+        db.delete_feedback(feedback_id)
+        db.close()
+        self.manager.current = 'feedback_view_screen'
+        self.manager.get_screen('feedback_view_screen').load()
+
+    def mark_as_read(self):
+        Logger.info('Feedback: Marking feedback as read')
+        feedback_title = self.ids.feedback_consultation_title.text
+        db = DatabaseHandler()
+        feedback_id = db.get_feedback_id(feedback_title)
+        if feedback_id is None: Logger.warning(f'Feedback: Wrong feedback title: {feedback_title}'); return
+        db.mark_feedback_as_read(feedback_id)
+        db.close()
+        self.manager.current = 'feedback_view_screen'
+        self.manager.get_screen('feedback_view_screen').load()
 
 class Feedback_screen(MDScreen):
     def __init__(self, **kwargs):
@@ -221,17 +261,39 @@ class Feedback_screen(MDScreen):
         self.ids.dish_suggestion.clear_widgets()
 
     def submit_feedback(self, title, dish, description):
+        message = f'{title} added successfully'
         if dish == '': Logger.warning('No dish selected'); dish = 'None';
 
         Logger.info('submit_feedback: ' + title +' | ' + dish + ' | ' + description)
 
-        db = DatabaseHandler()
-        db.add_feedback(str(title), db.get_dish_id(dish), str(description))
-        db.close()
+        try:
+            db = DatabaseHandler()
+            db.add_feedback(str(title), db.get_dish_id(dish), str(description))
+            db.close()
+        except Exception as e:
+            Logger.error(f'Error: {e}')
+            message = f'Error: {e}'
 
         self.ids.feedback_title.text = ''
         self.ids.dish_name.text = ''
         self.ids.description.text = ''
+
+        #content = Label + Button
+        content = BoxLayout(orientation='vertical')
+        content.add_widget(Label(text=message))
+        button = Button(text="Back to main screen")
+        button.bind(on_release=lambda *args: self.close_popup(popup))
+        content.add_widget(button)
+        popup = Popup(title='Feedback', content=content, size_hint=(None, None), size=(400, 400))
+        popup.open()
+
+    def close_popup(self, popup):
+        popup.dismiss()
+        self.manager.current = 'main_screen'
+
+
+
+
 
 class layout(MDApp):
     def build(self):

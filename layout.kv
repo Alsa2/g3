@@ -42,8 +42,8 @@ ScreenManager:
         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
         
 
-        MDRaisedButton:
-            text: "Config"
+        MDIconButton:
+            icon: "cog"
             # to the left of the screen
             on_release: app.root.current = 'login_screen'
 
@@ -80,23 +80,29 @@ ScreenManager:
 
                     MDBoxLayout:
                         orientation: "horizontal"
-                        MDRaisedButton:
-                            text: ":("
+                        MDIconButton:
+                            #text: ":("
+                            icon: "emoticon-sad"
                             size_hint_x: 0.33
                             size_hint_y: 1
                             on_release: root.dish_vote(dish_name_vegetable.text, -1)
+                            md_bg_color: 1, 0, 0, 0.5
 
-                        MDRaisedButton:
-                            text: ":|"
+                        MDIconButton:
+                            #text: ":|"
+                            icon: "emoticon-neutral"
                             size_hint_x: 0.33
                             size_hint_y: 1
                             on_release: root.dish_vote(dish_name_vegetable.text, 0)
+                            md_bg_color: 1, 1, 0, 0.5
 
-                        MDRaisedButton:
-                            text: ":)"
+                        MDIconButton:
+                            #text: ":)"
+                            icon: "emoticon-happy"
                             size_hint_x: 0.33
                             size_hint_y: 1
                             on_release: root.dish_vote(dish_name_vegetable.text, 1)
+                            md_bg_color: 0, 1, 0, 0.5
 
 
                 MDBoxLayout:
@@ -111,23 +117,29 @@ ScreenManager:
 
                     MDBoxLayout:
                         orientation: "horizontal"
-                        MDRaisedButton:
-                            text: ":("
+                        MDIconButton:
+                            #text: ":("
+                            icon: "emoticon-sad"
                             size_hint_x: 0.33
                             size_hint_y: 1
                             on_release: root.dish_vote(dish_name_meat.text, -1)
+                            md_bg_color: 1, 0, 0, 0.5
 
-                        MDRaisedButton:
-                            text: ":|"
+                        MDIconButton:
+                            #text: ":|"
+                            icon: "emoticon-neutral"
                             size_hint_x: 0.33
                             size_hint_y: 1
                             on_release: root.dish_vote(dish_name_meat.text, 0)
+                            md_bg_color: 1, 1, 0, 0.5
 
-                        MDRaisedButton:
-                            text: ":)"
+                        MDIconButton:
+                            #text: ":)"
+                            icon: "emoticon-happy"
                             size_hint_x: 0.33
                             size_hint_y: 1
                             on_release: root.dish_vote(dish_name_meat.text, 1)
+                            md_bg_color: 0, 1, 0, 0.5
 
                 MDBoxLayout:
                     orientation: "vertical"
@@ -141,24 +153,30 @@ ScreenManager:
 
                     MDBoxLayout:
                         orientation: "horizontal"
-                        MDRaisedButton:
-                            text: ":("
+                        MDIconButton:
+                            #text: ":("
+                            icon: "emoticon-sad"
                             size_hint_x: 0.33
                             size_hint_y: 1
                             on_release: root.dish_vote(dish_name_dessert.text, -1)
+                            md_bg_color: 1, 0, 0, 0.5
 
 
-                        MDRaisedButton:
+                        MDIconButton:
                             text: ":|"
+                            icon: "emoticon-neutral"
                             size_hint_x: 0.33
                             size_hint_y: 1
                             on_release: root.dish_vote(dish_name_dessert.text, 0)
+                            md_bg_color: 1, 1, 0, 0.5
 
-                        MDRaisedButton:
-                            text: ":)"
+                        MDIconButton:
+                            #text: ":)"
+                            icon: "emoticon-happy"
                             size_hint_x: 0.33
                             size_hint_y: 1
                             on_release: root.dish_vote(dish_name_dessert.text, 1)
+                            md_bg_color: 0, 1, 0, 0.5
 
                 MDBoxLayout:
                     orientation: "horizontal"
@@ -410,9 +428,7 @@ ScreenManager:
                     text: "Submit"
                     size_hint_x: 0.1
                     size_hint_y: 0.3
-                    on_release: 
-                        app.root.current = 'main_screen'
-                        root.submit_feedback(feedback_title.text, dish_name.text, description.text)
+                    on_release: root.submit_feedback(feedback_title.text, dish_name.text, description.text)
                 MDFlatButton:
                     text: "Cancel"
                     size_hint_x: 0.1
@@ -588,11 +604,104 @@ ScreenManager:
         size_hint: 1, 1
         # change the position of the image
         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-    MDLabel:
-        id: error_label_feedback
-        text: "Configuration"
-        #set to the top midle of the screen
-        pos_hint: {'center_x': 0.5, 'center_y': .9}
-        font_style: "H4"
-        halign: "center"
-        color: 1, 1, 1, 1
+
+    MDCard:
+        size_hint: 0.5, 0.9
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        orientation: 'vertical'
+        padding: 10
+        md_bg_color: 1, 1, 1, 0.3
+
+        MDLabel:
+            text: "Feedback Consultation"
+            halign: "center"
+            font_style: "H4"
+            bold: True
+
+        MDLabel:
+            text: "Title"
+            halign: "center"
+            font_style: "H5"
+            bold: True
+        MDLabel:
+            id: feedback_consultation_title
+            text: "Title"
+            halign: "center"
+            font_style: "H5"
+            md_bg_color: 1, 1, 1, 0.4
+        
+        MDLabel:
+            text: "Date"
+            halign: "center"
+            font_style: "H5"
+            bold: True
+        MDLabel:
+            id: feedback_consultation_date
+            text: "Date"
+            halign: "center"
+            font_style: "H6"
+            italic: True
+            md_bg_color: 1, 1, 1, 0.4
+
+            
+        MDLabel:
+            text: "Selected Dishes"
+            halign: "center"
+            font_style: "H5"
+            bold: True
+        MDLabel:
+            id: feedback_consultation_selected_dishes
+            text: "Selected Dishes"
+            halign: "center"
+            font_style: "H6"
+            italic: True
+            md_bg_color: 1, 1, 1, 0.4
+
+        MDLabel:
+            text: "Description"
+            halign: "center"
+            font_style: "H5"
+            bold: True
+        MDLabel:
+            id: feedback_consultation_description
+            text: "Description"
+            halign: "center"
+            font_style: "H5"
+            italic: True
+            md_bg_color: 1, 1, 1, 0.4
+
+        # add three buttons (back, delete, mark as read)
+
+        MDBoxLayout:
+            orientation: "horizontal"
+            padding: "8dp"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+            MDIconButton:
+                icon: "keyboard-return"
+                size_hint_x: 0.95
+                size_hint_y: 1
+                pos_hint: {"center_x":.5, "center_y":.5}
+                on_press:
+                    root.manager.current = "feedback_view_screen"
+                    root.manager.transition.direction = "left"
+                
+            MDIconButton:
+                icon: "delete"
+                size_hint_x: 0.95
+                size_hint_y: 1
+                pos_hint: {"center_x":.5, "center_y":.5}
+                md_bg_color: "#e63946"
+                on_press:
+                    root.delete_feedback()
+            MDIconButton:
+                icon: "check"
+                size_hint_x: 0.95
+                size_hint_y: 1
+                pos_hint: {"center_x":.5, "center_y":.5}
+                md_bg_color: 1, 0.8, 0, 1 
+                on_press:
+                    root.mark_as_read()
+            
+
+

@@ -144,6 +144,11 @@ class DatabaseHandler():
             feedback_title=title).first()
         return feedback.id
 
+    def get_feedback_by_id(self, feedback_id):
+        feedback = self.session.query(FeedBack).filter_by(
+            id=feedback_id).first()
+        return feedback
+
     def mark_feedback_as_read(self, feedback_id):
         feedback = self.session.query(FeedBack).filter_by(
             id=feedback_id).first()
@@ -159,14 +164,9 @@ class DatabaseHandler():
         return None
 
 # Hard coded example usage: (add vegetable dish, meat and dessert)
+
+
 """
-create_db()
-db = DatabaseHandler()
-
-# add them to dish stats
-db.change_dish_stats(1, 0, 0, 0)
-
-
 create_db()
 db = DatabaseHandler()
 db.add_dish('Vegetable', 'vegetable', 'carrot, potato, onion')
@@ -180,4 +180,5 @@ db.add_dish("Pizza", "meat", "dough, tomato, cheese")
 db.add_dish("Salad", "vegetable", "lettuce, tomato, cucumber")
 db.add_dish("Steak", "meat", "beef, salt, pepper")
 db.add_dish("Sushi", "meat", "rice, fish, seaweed")
+
 """
