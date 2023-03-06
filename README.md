@@ -33,11 +33,15 @@ ToDo
 
 ## Wireframe
 
-![wireframe](assets/documentation/Wireframe.drawio.png)
+![wireframe](assets/documentation/Wireframe.png)
 
 ## Er Diagram
 
+![ER](assets/documentation/ER.png)
+
 ## UML Diagram
+
+![UML](assets/documentation/UML.png)
 
 ## Flow Diagram
 
