@@ -1,5 +1,8 @@
 # Unit 3 Project: CK Feedback Software
 
+![DALLE](/assets/documentation/DALL·E.png)
+<i> A pixel art of a person cooking some pancakes in a 3d cubic kitchen </i>
+
 # Criteria A: Planning
 
 ## Problem definition
@@ -29,7 +32,7 @@ Todo
 
 ## System Diagram
 
-ToDo
+![System Diagram](assets/documentation/System.png)
 
 ## Wireframe
 

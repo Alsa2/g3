@@ -200,11 +200,9 @@ class Feedback_consultation_screen(MDScreen):
         feedback = db.get_feedback_by_id(feedback)
         Logger.info(f'Feedback: {feedback}, {feedback.feedback_title}, {feedback.feedback}, {feedback.date}, {feedback.dish.name}')
         if feedback == []: Logger.warning('Feedback: No feedback found'); return
-        dish = feedback.dish.name
-        print(dish)
         self.ids.feedback_consultation_title.text = feedback.feedback_title
         self.ids.feedback_consultation_date.text = feedback.date
-        self.ids.feedback_consultation_selected_dishes = str(dish)
+        self.ids.feedback_consultation_selected_dishes.text = feedback.dish.name
         self.ids.feedback_consultation_description.text = feedback.feedback
         db.close()
 
