@@ -82,11 +82,7 @@ Todo
 
 
 
-# Citations
 
-[^1]: Industries, Adafruit. “DHT11 Basic Temperature-Humidity Sensor + Extras.” Adafruit Industries Blog
-RSS, https://www.adafruit.com/product/386.
-[^2]: Educba. "Kivy vs Flutter" Educba, https://www.educba.com/kivy-vs-flutter/
 
 
 
@@ -184,9 +180,68 @@ BlaBlaBla
 ## Video Showcasing the Functionality of the Application
 Video link: 
 
+## Evidence of Testing
 
-# Citations
-1. 
+### Database Integrity Testing
+This pytest is a fast test you can run before the running of the program to make a quick check of the integrity of the database. It is not a complete test but it is a good start to make sure that the database is working properly.
+```.py
+import pytest
+
+from database_handler import DatabaseHandler
+
+
+def test_create_db():
+    # Test that create_db() function returns None
+    assert create_db() is None
+
+
+def test_add_dish():
+    # Create a DatabaseHandler instance
+    db_handler = DatabaseHandler()
+
+    # Add a dish and check if it returns None
+    assert db_handler.add_dish('Spaghetti', 'Italian', 'Pasta, Tomato sauce, Meat') is None
+
+    # Query the dishes with input search string 'hett'
+    dishes = db_handler.query_dishes('hett')
+    
+    # Assert that the recently added dish 'Spaghetti' is in the result list 
+    assert any(dish.name == 'Spaghetti' for dish in dishes)
+
+    # Close the session
+    db_handler.close()
+```
+*Fast Main Test (if you was to test the main things)*
+
+### All Database Handler Functions Testing
+This pytest is a more complete test that tests all the functions of the database handler. It is a bit slower than the previous one but it is useful to check if the modifications you did to the handler are working properly.
+
+Importing the Handler and the libraries
+```.py
+from datetime import date, datetime
+from database_handler import DatabaseHandler
+import pytest
+```
+
+Nice trick that i forgot to implement (avoiding to leave the database open)
+```.py
+@pytest.fixture(scope="function")
+def session():
+    db = DatabaseHandler()
+    yield db.session
+    db.close()
+```
+
+Testing all the functions
+```.py
+
+```
+
+
+
+
+
+
 
 
 # Appendix
@@ -200,3 +255,9 @@ Video link:
 
 
 ### Client's review of final product
+
+
+# Citations
+
+RSS, https://www.adafruit.com/product/386.
+[^2]: Educba. "Kivy vs Flutter" Educba, https://www.educba.com/kivy-vs-flutter/
