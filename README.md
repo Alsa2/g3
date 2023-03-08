@@ -22,10 +22,6 @@ Looking at the clients requirements the best solution for this feedback system w
 For the back end management we decided to use python because it is a language that I am familiar with and it is easy to use, and because this is a small project performance is not a big issue.
 For the GUI design we decided that using kivy would be the best option because I already had some experience with it and it would be easy to implement with the database because it a framework that uses python. Even if flutter would be a better option at every aspect [^2], it would be too much work to learn it in such a short time for this kind of short project. I used the add-on library KivyMD to make it easier to implement and edit.
 
-## Rationale for Proposed Solution
-
-Todo
-
 
 
 # Criteria B: Design
@@ -70,11 +66,25 @@ Todo
 
 ### Screen Manager
 
-\```.kv
+```.kv
+ScreenManager:
+    id:src_manager
+
+    Main_screen:
+        name: 'main_screen'
+
+    Feedback_screen:
+        name: 'feedback_screen'
+
+    Login_screen:
+        name: 'login_screen'
+
+    Config_screen:
+        name: 'config_screen'
+```
 
 
 
-\```
 
 
 
