@@ -140,7 +140,9 @@ RSS, https://www.adafruit.com/product/386.
 
 # Criteria C: Development
 
-## Existing Tools
+
+
+## Existing Tools ?
 
 | Software/Development Tools | Coding Structure Tools | Libraries |
 | -------------------------- | ---------------------- | --------- |
@@ -152,32 +154,49 @@ RSS, https://www.adafruit.com/product/386.
 
 ## Computational Thinking
 
-#### Decomposition
+### Decomposition
 
 In computational thinking, decomposition refers to breaking a complex problem or system into parts that are easier to conceive,
 understand, program, and maintain.
 
-#### Pattern recognition, generalization and abstraction
+### Pattern recognition, generalization and abstraction
 
 
 
-#### Algorithms
+### Algorithms
 
+## Development of User Interface Using KivyMD
+
+### Screen manager
+BlaBlaBla
 
 
 ## Development
 
-#### OOP
+### OOP
 
-#### MVP - Minimum Viable Product
+### ORM
 
-In order to validate our concept of creation, we created a MVP as a prototype to make sure our concept is reliable and
-achievable. 
-
-## Criteria D: Functionality
+### Other nice techniques to use
 
 
+# Criteria D: Functionality
+## Video Showcasing the Functionality of the Application
+Video link: 
 
-## Demonstration Video
 
-*To be done
+# Citations
+1. 
+
+
+# Appendix
+
+## Evidence of Consultation
+
+### Client approval of proposed success critereas
+
+
+### Client's review of application during development process
+
+
+### Client's review of final product
