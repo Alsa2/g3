@@ -76,12 +76,58 @@ Once the user will click on the feedback icon he will be redirected to the feedb
 
 ## Test Plan
 
+Here is my test plan
+
+| Type                | Description                | Process                                                      | Anticipated Outcome                                          |
+| ------------------- | -------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Unit Testing        | Adding Numerical Feedback  | 1) Run main app<br />2) Click on *happy* on the vegetable part | If the code would work proprely, when we would run the query <u>SELECT * FROM dish_stats</u> whe sould get our vegetable upvote |
+| Unit Testing        | Adding Written Feedback    | 1) Run main app<br />2) Click on *additional feedback*<br />3) Add title, dish, and description<br />4) Click *Submit* | Try <u>SELECT * FROM  feedback</u> and you should see the feedback you just added |
+| Unit Testing        | Adding Written Feedback    | 1) Run main app<br />2) Click on the *cog* on the top left of the screen<br />3) Enter 0000 in the *text box*<br />4) Press Enter<br />3) Enter 1234 in the *text box*<br />4) Press *Enter*<br /> | First time you will try to login you will get an incorect password alert, second time it will successfully login and you will apear in the main screen. |
+| Integration Testing | Seeing Statistics          | 1) Run main app<br />2) Click on happy on the vegetable part<br />2) Click on the cog on the top left of the screen<br />3) Enter 1234 in the *text box*<br />4) Press *Enter*<br /><br />5) Press *See Statistics* | This will add a statistic on the vegetable and you will then travel to the see statistic page were you are supposed to see the smiley you just added. |
+| Integration Testing | Deleting Statistics        | 1) Run main app<br />2) Click on happy on the vegetable part<br />2) Click on the cog on the top left of the screen<br />3) Enter 1234 in the *text box*<br />4) Press *Enter*<br /><br />5) Press *See Statistics*<br />6) Select the vegetable<br />7) Press *Delete Statistics* | This will add a statistic on the vegetable and you will then travel to the see statistic page were you are supposed to see the smiley you just added. You will then remove the selected statistic and you will see it disappear. |
+| Integration Testing | Seeing Feedback            | 1) Run main app<br />2) Click on *additional feedback*<br />3) Add title, dish, and description<br />4) Click *Submit*<br />5) Click on the cog on the top left of the screen<br />6) Enter 1234 in the *text box*<br />7) Press *Enter*<br /><br />8) Press *See Feedback*<br /> | This will add a feedback on the dish you selected and you will then travel to the see feedback page were you are supposed to see the feedback you just added. |
+| Integration Testing | Reading/Deleting Feedback  | 1) Run main app<br />2) Click on *additional feedback*<br />3) Add title, dish, and description<br />4) Click *Submit*<br />5) Click on the cog on the top left of the screen<br />6) Enter 1234 in the *text box*<br />7) Press *Enter*<br /><br />8) Press *See Feedback*<br /><br />9) Press *read feedback*<br />10) Select 2 feedbacks<br />11) Press *read feedback*<br />12) Unselect one of the feedbacks<br />13) Press *read feedback*<br />14) Press *delete feedback* | This will add a feedback on the dish you selected and you will then travel to the see feedback page were you are supposed to see the feedback you just added.<br />You will then get an alert to select at least 1 feedback and then another one telling you to select only one feedback. They you will see the status change to read and then the feedback will disappear. |
+| Integration Testing | Open Feedback Consultation | 1) Run main app<br />2) Click on *additional feedback*<br />3) Add title, dish, and description<br />4) Click *Submit*<br />5) Click on the cog on the top left of the screen<br />6) Enter 1234 in the *text box*<br />7) Press *Enter*<br /><br />8) Press *See Feedback*<br /><br />9) Select 1 feedbacks<br /><br />10) Press *Open feedback* | This will add a feedback on the dish you selected and you will then travel to the see feedback page were you are supposed to see the feedback you just added. Then you will see a page open with the individual title, dish, description open to the appropriate selected feedback. |
+| Integration Testing | Open Feedback Consultation | 1) Run main app<br />2) Click on *additional feedback*<br />3) Add title, dish, and description<br />4) Click *Submit*<br />5) Click on the cog on the top left of the screen<br />6) Enter 1234 in the *text box*<br />7) Press *Enter*<br /><br />8) Press *See Feedback*<br /><br />9) Select 1 feedbacks<br /><br />10) Press *Open feedback*<br />11) Press *read feedback*<br />12) Press *delete feedback* | This will add a feedback on the dish you selected and you will then travel to the see feedback page were you are supposed to see the feedback you just added. Then you will see a page open with the individual title, dish, description open to the appropriate selected feedback.<br />They you will see the status change to read and then the feedback will disappear. |
+| Code Review         | Reviewing Code             | Making sure all the unused / testing code is removed, variables are named correctly and there is coments on the critical parts of the program. | Easy to understand, debug and recycle code                   |
+
+
+
 ## Record of task
 
-| Task No | Planned Action                                   | Planned Outcome                                          | Time estimate | Target completion date | Criterion |
-| ------- | ------------------------------------------------ | -------------------------------------------------------- | ------------- | ---------------------- | --------- |
-| 1       | Planning: First Meeting with client              | Start collecting the context of the problem              | 6 min         | Feb 7                  | A         |
-| 2       | Planning: Defining problem and proposed solution | Start on refining client's requirements and tools needed | 60 min        | Feb 20                 | A         |
+| Task No | Planned Action                                          | Planned Outcome                                              | Time estimate            | Target completion date | Criterion |
+| ------- | ------------------------------------------------------- | ------------------------------------------------------------ | ------------------------ | ---------------------- | --------- |
+| 1       | Planning: First Meeting with client                     | Start collecting the context of the problem                  | 6 min                    | Feb 7                  | A         |
+| 2       | Planning: Defining problem and proposed solution        | Start on refining client's requirements and tools needed     | 60 min                   | Feb 20                 | A         |
+| 3       | Designing: Codebase schemas                             | Creating the codebase schemas for our database               | 30 min                   | Feb 22                 | B         |
+| 4       | Planning: First Quick Chat                              | Quick Chat with thumula to show him the created  database shema | 10 min                   | Feb 23                 | A         |
+| 5       | Planning: Second Meeting with client                    | Defining succes criterias                                    | 15 min                   | Feb 24                 | A         |
+| 6       | Designing: Wireframe of the program                     | The mains functions wireframe diagrams                       | 2 hours                  | Feb 24                 | B         |
+| 7       | Planning: Second Quick Chat                             | Checking for the approval of the wireframes by Thumula       | 10 min                   | Feb 25                 | A         |
+| 8       | Coding: the database_handler                            | Coding the handler of the schemas with alchemy               | 2 hours                  | Feb 27                 | C         |
+| 9       | Coding: Screen Manager and .py                          | Coding the roots of my program                               | 30 min                   | Feb 28                 | C         |
+| 10      | Coding: Main Screen layout with vote system             | Just the layout, no backend                                  | 15 min                   | Feb 29 Hum?            | C         |
+| 11      | Coding: Backed of main screen                           | Backed of the previous task                                  | 20 min                   | Feb 30 HUM!            | C         |
+| 12      | Testing: Main screen vote system                        | Just testing if it works                                     | 5 min                    | March 1                | D         |
+| 13      | Coding: Additional Feedback layout and the backed of it | The screen where you can write the feedback with the dishes  | 1 hour                   | March 1                | C         |
+| 14      | Testing: Additional Feedback System                     | Previous step testing                                        | 5 min                    | March 1                | D         |
+| 15      | Planning: Third quick chat                              | Showing Thumula the progress of the app                      | 7 min                    | March 1                | A         |
+| 16      | Coding: Login Screen                                    | The names gives it all, I want to sleep                      | 30 min                   | March 2                | C         |
+| 17      | Coding: Config Screen                                   | Like an admin screen                                         | 30 min                   | March 2                | C         |
+| 18      | Testing: Previous two tasks test                        | I NEED TO SLEEP                                              | 5 min                    | March 2                | D         |
+| 19      | Planning: Forth quick chat                              | Showing Thumula the progress of the app                      | 7 min                    | March 2                | A         |
+| 20      | Coding: More handler functions                          | Yep, you guest it, moar functions                            | 10 min                   | March 3                | C         |
+| 21      | Coding: Statistic view                                  | Showing the statistics got in the main screen                | 2 hours                  | March 3                | C         |
+| 22      | Testing: Testing Statistic view                         | It worked                                                    | 5 min                    | March 3                | D         |
+| 23      | Coding: The feedback view screen                        | Same as statistiks but with moar buttons                     | 1 hour                   | March 4                | C         |
+| 24      | Coding: The feedback consultation screen                | Like the feedback input but without input                    | 40 min                   | March 5                | C         |
+| 25      | Testing: Testing last two steps                         | Again it worked                                              | 5 min                    | March 6                | D         |
+| 26      | Planning: Fifth quick chat                              | Showing Thumula the progress of the app                      | 7 min                    | March 7                | A         |
+| 27      | Start of documentation                                  | Here we go                                                   | 1 hours                  | March 7                | B         |
+| 28      | Criteria B<br />Criteria C<br />Criteria D              | Ok let me explain, I had a math test and the dog ate my repo<br />You proposed the gample and human brain like gable, next time, no gable (or at least get lucky) | 6 hours less to my sleep | March 10               | B-C-D     |
+
+
+
 
 
 # Criteria C: Development
@@ -113,13 +159,13 @@ Once the user will click on the feedback icon he will be redirected to the feedb
 ### Decomposition of the query dish problem
 
     Problem: Display a list of dishes based on user input.
-
+    
     Inputs:
     -"dishes": a string entered by the user.
-
+    
     Outputs:
     - A list of dishes that match the user's input.
-
+    
     Algorithm:
     a. Clear any existing dish suggestions.
     b. If the user input is empty, return.
