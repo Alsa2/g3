@@ -170,8 +170,9 @@ class DatabaseHandler():
 create_db()
 db = DatabaseHandler()
 db.add_dish('Vegetable', 'vegetable', 'carrot, potato, onion')
-db.add_dish('Meat', 'meat', 'beef, pork, chicken')
+db.add_dish('Main Dish', 'meat', 'beef, pork, chicken')
 db.add_dish('Dessert', 'dessert', 'ice cream, cake, chocolate')
+
 
 db.add_dish("Chicken Curry", "meat", "chicken, curry, rice")
 db.add_dish("Creme Brulee", "dessert", "egg, sugar, cream")
@@ -181,4 +182,11 @@ db.add_dish("Salad", "vegetable", "lettuce, tomato, cucumber")
 db.add_dish("Steak", "meat", "beef, salt, pepper")
 db.add_dish("Sushi", "meat", "rice, fish, seaweed")
 
+db.add_dish("Chicken Fajitas", "meat", "chicken, tortilla, onion")
+db.add_dish("Tortilla & Salsa", "vegetable", "tortilla, tomato, onion")
+db.add_dish("Corn and Cheese", "vegetable", "corn, cheese, butter")
+db.add_dish("Spinach soup", "vegetable", "spinach, onion, potato")
+db.add_dish("Baked Pineapple", "dessert", "pineapple, sugar, butter")
+
+db.close()
 """

@@ -27,7 +27,7 @@ ScreenManager:
 <Main_Screen>:
     name: 'main_screen'
     FitImage:
-        source: "assets/program/background.jpg"
+        source: "background.jpg"
         # change the size of the image
         size_hint: 1, 1
         # change the position of the image
@@ -189,156 +189,167 @@ ScreenManager:
 
 <Login_screen>:
     name: 'login_screen'
-    
+
     FitImage:
-        source: "assets/program/background.jpg"
+        source: "background.jpg"
         # change the size of the image
         size_hint: 1, 1
         # change the position of the image
         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
 
-    MDCard:
-        size_hint: 0.5, 0.9
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: "8dp"
         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-        orientation: 'vertical'
-        padding: 10
-        md_bg_color: 1, 1, 1, 0.3
-        # change the color of the card
+        
 
-        MDBoxLayout:
-            orientation: "vertical"
-            padding: "8dp"
-
-            MDLabel:
-                text: "Login"
-                halign: "center"
-                font_style: "H4"
-
-            # show a text field to display inputed code
-            MDTextField:
-                id: code
-                hint_text: "Code"
-                helper_text: "Enter the code"
-                helper_text_mode: "on_focus"
-                password: True
-                icon_right: 'eye-off'
-                icon_right_color: app.theme_cls.primary_color
-                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-                size_hint_x: None
-                width: 200
+        MDRaisedButton:
+            text: "back"
+            # to the left of the screen
+            on_release: app.root.current = 'main_screen'
+    
+        MDCard:
+            size_hint: 0.5, 0.9
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            orientation: 'vertical'
+            padding: 10
+            md_bg_color: 1, 1, 1, 0.3
+            # change the color of the card
 
             MDBoxLayout:
                 orientation: "vertical"
-                padding: 10
+                padding: "8dp"
+
+                MDLabel:
+                    text: "Login"
+                    halign: "center"
+                    font_style: "H4"
+
+                # show a text field to display inputed code
+                MDTextField:
+                    id: code
+                    hint_text: "Code"
+                    helper_text: "Enter the code"
+                    helper_text_mode: "on_focus"
+                    password: True
+                    icon_right: 'eye-off'
+                    icon_right_color: app.theme_cls.primary_color
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                    size_hint_x: None
+                    width: 200
 
                 MDBoxLayout:
-                    orientation: "horizontal"
-                    padding: 10
-                    opacity: 1
-
-                    MDRaisedButton:
-                        text: "1"
-                        size_hint_x: 0.33
-                        size_hint_y: 1
-                        on_release: code.text += "1"
-
-                    MDRaisedButton:
-                        text: "2"
-                        size_hint_x: 0.33
-                        size_hint_y: 1
-                        on_release: code.text += "2"
-
-                    MDRaisedButton:
-                        text: "3"
-                        size_hint_x: 0.33
-                        size_hint_y: 1
-                        on_release: code.text += "3"
-                
-                MDBoxLayout:
-                    orientation: "horizontal"
+                    orientation: "vertical"
                     padding: 10
 
-                    MDRaisedButton:
-                        text: "4"
-                        size_hint_x: 0.33
-                        size_hint_y: 1
-                        on_release: code.text += "4"
+                    MDBoxLayout:
+                        orientation: "horizontal"
+                        padding: 10
+                        opacity: 1
 
-                    MDRaisedButton:
-                        text: "5"
-                        size_hint_x: 0.33
-                        size_hint_y: 1
-                        on_release: code.text += "5"
+                        MDRaisedButton:
+                            text: "1"
+                            size_hint_x: 0.33
+                            size_hint_y: 1
+                            on_release: code.text += "1"
 
-                    MDRaisedButton:
-                        text: "6"
-                        size_hint_x: 0.33
-                        size_hint_y: 1
-                        on_release: code.text += "6"
+                        MDRaisedButton:
+                            text: "2"
+                            size_hint_x: 0.33
+                            size_hint_y: 1
+                            on_release: code.text += "2"
 
-                MDBoxLayout:
-                    orientation: "horizontal"
-                    padding: 10
-
-                    MDRaisedButton:
-                        text: "7"
-                        size_hint_x: 0.33
-                        size_hint_y: 1
-                        on_release: code.text += "7"
-
-                    MDRaisedButton:
-                        text: "8"
-                        size_hint_x: 0.33
-                        size_hint_y: 1
-                        on_release: code.text += "8"
-
-                    MDRaisedButton:
-                        text: "9"
-                        size_hint_x: 0.33
-                        size_hint_y: 1
-                        on_release: code.text += "9"
-
-                MDBoxLayout:
+                        MDRaisedButton:
+                            text: "3"
+                            size_hint_x: 0.33
+                            size_hint_y: 1
+                            on_release: code.text += "3"
+                    
                     MDBoxLayout:
                         orientation: "horizontal"
                         padding: 10
 
                         MDRaisedButton:
-                            text: "Clear"
+                            text: "4"
                             size_hint_x: 0.33
                             size_hint_y: 1
-                            # on execute the function clear
-                            on_release: code.text = ""
-                        
-                        MDRaisedButton:
-                            text: "0"
-                            size_hint_x: 0.33
-                            size_hint_y: 1
-                            on_release: code.text += "0"
+                            on_release: code.text += "4"
 
                         MDRaisedButton:
-                            text: "Enter"
+                            text: "5"
                             size_hint_x: 0.33
                             size_hint_y: 1
-                            # on release root.enter(code.text) and erase code.text
-                            on_release: 
-                                root.enter(code.text)
-                                code.text = ""
+                            on_release: code.text += "5"
 
-            MDLabel:
-                id: error_label
-                text: ''
-                halign: 'center'
-                theme_text_color: 'Custom'
-                text_color: 1, 0, 0, 1
-                font_style: 'H6'
-                size_hint_y: None
+                        MDRaisedButton:
+                            text: "6"
+                            size_hint_x: 0.33
+                            size_hint_y: 1
+                            on_release: code.text += "6"
+
+                    MDBoxLayout:
+                        orientation: "horizontal"
+                        padding: 10
+
+                        MDRaisedButton:
+                            text: "7"
+                            size_hint_x: 0.33
+                            size_hint_y: 1
+                            on_release: code.text += "7"
+
+                        MDRaisedButton:
+                            text: "8"
+                            size_hint_x: 0.33
+                            size_hint_y: 1
+                            on_release: code.text += "8"
+
+                        MDRaisedButton:
+                            text: "9"
+                            size_hint_x: 0.33
+                            size_hint_y: 1
+                            on_release: code.text += "9"
+
+                    MDBoxLayout:
+                        MDBoxLayout:
+                            orientation: "horizontal"
+                            padding: 10
+
+                            MDRaisedButton:
+                                text: "Clear"
+                                size_hint_x: 0.33
+                                size_hint_y: 1
+                                # on execute the function clear
+                                on_release: code.text = ""
+                            
+                            MDRaisedButton:
+                                text: "0"
+                                size_hint_x: 0.33
+                                size_hint_y: 1
+                                on_release: code.text += "0"
+
+                            MDRaisedButton:
+                                text: "Enter"
+                                size_hint_x: 0.33
+                                size_hint_y: 1
+                                # on release root.enter(code.text) and erase code.text
+                                on_release: 
+                                    root.enter(code.text)
+                                    code.text = ""
+
+                MDLabel:
+                    id: error_label
+                    text: ''
+                    halign: 'center'
+                    theme_text_color: 'Custom'
+                    text_color: 1, 0, 0, 1
+                    font_style: 'H6'
+                    size_hint_y: None
 
 
 <Feedback_screen>:
     name: 'feedback_screen'
     FitImage:
-        source: "assets/program/background.jpg"
+        source: "background.jpg"
         # change the size of the image
         size_hint: 1, 1
         # change the position of the image
@@ -438,7 +449,7 @@ ScreenManager:
 <Config_screen>:
     name: 'config_screen'
     FitImage:
-        source: "assets/program/background.jpg"
+        source: "background.jpg"
         # change the size of the image
         size_hint: 1, 1
         # change the position of the image
@@ -494,7 +505,7 @@ ScreenManager:
 
 <Statistics_screen>:
     FitImage:
-        source: "assets/program/background.jpg"
+        source: "background.jpg"
         # change the size of the image
         size_hint: 1, 1
         # change the position of the image
@@ -526,7 +537,7 @@ ScreenManager:
 
 <Feedback_view_screen>:
     FitImage:
-        source: "assets/program/background.jpg"
+        source: "background.jpg"
         # change the size of the image
         size_hint: 1, 1
         # change the position of the image
@@ -599,7 +610,7 @@ ScreenManager:
 
 <Feedback_consultation_screen>:
     FitImage:
-        source: "assets/program/background.jpg"
+        source: "background.jpg"
         # change the size of the image
         size_hint: 1, 1
         # change the position of the image

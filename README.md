@@ -7,11 +7,11 @@
 
 ## Problem definition
 
-Cezar KItchen is a high school cafeteria that serve students and staff in UWC ISAK Japan. The cafeteria is managed by a Dariosan and has a student representative named Thumula Ayodhya Karunaratne. Until recently there was a notebook near the exit where you could write feedback about the lunch that you just eat, but because people where using it just to spam two things (karage and apple crumble), therefore the notebook was removed. One day Thumula had the idea to create a device that could take feedback at the exit like the ones after the security check in airports. Because the number of dishes could change it was opted for a numerical feedback system. Also to have a more specific feedback, the device should have a screen where the user could write a comment. The device should also have a login system for the management to see the feedback and the comments. 
+Cezar Kitchen is a high school cafeteria that serve students and staff in Internationnal school in Japan. The cafeteria is managed by a Japanese Chef and has a student representative named that is also part of the school, the student is also my client. Until recently there was a notebook near the exit where you could write feedback about the lunch that you just eat, but because people where using it just to spam two things (karage and apple crumble), therefore the notebook was removed. One day my client had the idea to create a device that could take feedback at the exit like the ones after the security check in airports. Because the number of dishes could change it was opted for a numerical feedback system. Also to have a more specific feedback, the device should have a screen where the user could write a comment. The device should also have a login system for the management to see the feedback and the comments. 
 
 ## Succes Criteria
 
-1. The device should be user-friendly and easy to understand for students and staff at UWC ISAK Japan.
+1. The device should be user-friendly and easy to understand for students and staff of the Internationnal school in Japan.
 2. The device should be able to capture both numerical statistics and feedback.
 3. The device should have a login system should prevent unauthorized students/staff from accessing, editing, deleting feedback and statistics.
 4. The system should be able to store the feedback and comments in a database for future reference and analysis.
@@ -95,6 +95,8 @@ Here is my test plan
 
 ## Record of task
 
+PS: Don't look at my commit history, pushes were not made at the time I made the actual modifications
+
 | Task No | Planned Action                                          | Planned Outcome                                              | Time estimate            | Target completion date | Criterion |
 | ------- | ------------------------------------------------------- | ------------------------------------------------------------ | ------------------------ | ---------------------- | --------- |
 | 1       | Planning: First Meeting with client                     | Start collecting the context of the problem                  | 6 min                    | Feb 7                  | A         |
@@ -105,14 +107,14 @@ Here is my test plan
 | 6       | Designing: Wireframe of the program                     | The mains functions wireframe diagrams                       | 2 hours                  | Feb 24                 | B         |
 | 7       | Planning: Second Quick Chat                             | Checking for the approval of the wireframes by Thumula       | 10 min                   | Feb 25                 | A         |
 | 8       | Coding: the database_handler                            | Coding the handler of the schemas with alchemy               | 2 hours                  | Feb 27                 | C         |
-| 9       | Coding: Screen Manager and .py                          | Coding the roots of my program                               | 30 min                   | Feb 28                 | C         |
-| 10      | Coding: Main Screen layout with vote system             | Just the layout, no backend                                  | 15 min                   | Feb 29 Hum?            | C         |
-| 11      | Coding: Backed of main screen                           | Backed of the previous task                                  | 20 min                   | Feb 30 HUM!            | C         |
+| 9       | Coding: Screen Manager and .py                          | Coding the roots of my program                               | 30 min                   | Feb 27                 | C         |
+| 10      | Coding: Main Screen layout with vote system             | Just the layout, no backend                                  | 15 min                   | Feb 27            | C         |
+| 11      | Coding: Backed of main screen                           | Backed of the previous task                                  | 20 min                   | Feb 37            | C         |
 | 12      | Testing: Main screen vote system                        | Just testing if it works                                     | 5 min                    | March 1                | D         |
 | 13      | Coding: Additional Feedback layout and the backed of it | The screen where you can write the feedback with the dishes  | 1 hour                   | March 1                | C         |
 | 14      | Testing: Additional Feedback System                     | Previous step testing                                        | 5 min                    | March 1                | D         |
 | 15      | Planning: Third quick chat                              | Showing Thumula the progress of the app                      | 7 min                    | March 1                | A         |
-| 16      | Coding: Login Screen                                    | The names gives it all, I want to sleep                      | 30 min                   | March 2                | C         |
+| 16      | Coding: Login Screen                                    | The names gives it all                      | 30 min                   | March 2                | C         |
 | 17      | Coding: Config Screen                                   | Like an admin screen                                         | 30 min                   | March 2                | C         |
 | 18      | Testing: Previous two tasks test                        | I NEED TO SLEEP                                              | 5 min                    | March 2                | D         |
 | 19      | Planning: Forth quick chat                              | Showing Thumula the progress of the app                      | 7 min                    | March 2                | A         |
