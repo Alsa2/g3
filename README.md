@@ -11,7 +11,7 @@ Cezar KItchen is a high school cafeteria that serve students and staff in UWC IS
 
 ## Succes Criteria
 
-1. The device should be user-friendly and easy to understand for students and staff at UWC ISAK Japan.
+1. The device should be user-friendly and easy to understand for students and staff at UWC ISAK Ja pan.
 2. The device should be able to capture both numerical statistics and feedback.
 3. The device should have a login system should prevent unauthorized students/staff from accessing, editing, deleting feedback and statistics.
 4. The system should be able to store the feedback and comments in a database for future reference and analysis.

@@ -165,6 +165,7 @@ class DatabaseHandler():
 
 # Hard coded example usage: (add vegetable dish, meat and dessert)
 
+create_db()
 
 """
 create_db()
